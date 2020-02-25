@@ -1,0 +1,389 @@
+{UTF-8}
+Emision de CO2 Antropogenico= INTEG (
+	(CO2 Natural por persona*Población)+(CO2 por vehiculo*Vehiculo a base de combustible fósil\
+		)+(CO2 Por industria*Industria)-CO2 Ant a la atm,
+		0)
+	~	Toneladas
+	~	Toneladas de CO2 que emite la población
+	|
+
+Arboles= INTEG (
+	IF THEN ELSE( Arboles>Deforestación*"Def A/Y a Def A",Plantación-Deforestación, 0\
+		 ),
+		3e+12)
+	~	arboles
+	~	Numero de arboles (Si el numero de arboles es inferior al numero de \
+		arboles talados por la poblacion en un año, entonces la población no \
+		talará esos arboles)
+	|
+
+C a CO2=
+	(C En la litosfera*"CO2 Expulsado desde la superficie (No Ant)")
+	~	Toneladas/Year
+	~	Toneladas de CO2 que es expulsado desde la superficie terrestre hacia la \
+		atmosfera al año
+	|
+
+C En la litosfera= INTEG (
+	CO2 a C-C a CO2,
+		5.6e+17)
+	~	Toneladas
+	~	Toneladas de carbono en la superficie terrestre
+	|
+
+CO2 a C=
+	IF THEN ELSE( CO2 En la atmosfera/"Co2 atm T a Co2 atm T/Y">CO2 capturado por arbol*\
+		Arboles , CO2 capturado por arbol*Arboles , 0)
+	~	Toneladas/Year
+	~	Toneladas de CO2 que es absorbido por los arboles al año
+	|
+
+Nacmientos=
+	(Tasa natalidad*Población)/1000
+	~	people/Year
+	~	Nacimientos al año
+	|
+
+Plantación=
+	Población*Tasa de plantación
+	~	arboles/Year
+	~	Cantidad de arboles plantados por la poblacion en un año
+	|
+
+"Co2 atm T a Co2 atm T/Y"=
+	1
+	~	Year
+	~		|
+
+Tasa de tala=
+	0.315
+	~	arboles/people/Year
+	~	Cantidad de arboles talados por una persona al año
+	|
+
+CO2 En la atmosfera= INTEG (
+	C a CO2+CO2 Ant a la atm+H2CO3 a CO2-CO2 a C-CO2 a H2CO3,
+		2.24e+14)
+	~	Toneladas
+	~	Toneladas de CO2 en la atmosfera terrestre
+	|
+
+"CO2 Expulsado desde la superficie (No Ant)"=
+	1e-06
+	~	1/Year
+	~	Parte de CO2 que es expulsado desde la superficie terrestre mediante los \
+		volcanes, respiracion de seres vivos (terrestres) u otros acontecimientos.
+	|
+
+Industria=
+	Industria por personas*Población
+	~	industria
+	~	Numero aproximado de industrias funcionando en el planeta.
+	|
+
+Industria por personas=
+	Tasa industrial/Trabajador por industria
+	~	industria/people
+	~	Parte de la poblacion que trabaja en industria, dividido entre el numero \
+		de personas promedio que laburan en una industria, lo que da el número de \
+		industrias en el planeta por cada habitante.
+	|
+
+Tasa industrial=
+	0.02
+	~	industria
+	~		|
+
+"Def A/Y a Def A"=
+	1
+	~	Year
+	~	Variable para convertir las unidades de "deforestacion" de ARBOLES/YEAR a \
+		ARBOLES para hacer la comparativa entre la cantidad de arboles existentes \
+		y los que se talan al año.
+	|
+
+Deforestación=
+	Población*Tasa de tala
+	~	arboles/Year
+	~	Cantidad de arboles talados por la poblacion en un año
+	|
+
+Trabajador por industria=
+	80
+	~	people
+	~		|
+
+Muertes=
+	(Población*Tasa mortalidad)/1000
+	~	people/Year
+	~	Muertes al año
+	|
+
+CO2 Ant a la atm=
+	Emision de CO2 Antropogenico*Tasa CO2 Ant a la atm
+	~	Toneladas/Year
+	~	Tonmeladas de CO2 que pasan a la atmosfera a causa de la poblacion
+	|
+
+Absorcion de CO2 por plantas marinas=
+	1e-06
+	~	1/Year
+	~	Parte del CO2 que es absorbido por las plantas marinas al año
+	|
+
+Tasa CO2 exp agua=
+	1e-06
+	~	1/Year
+	~	Parte de CO2 que es expulsado a la atmosfera desde el agua al año
+	|
+
+H2CO3 a CO2=
+	Tasa CO2 exp agua*H2CO3 En la hidrosfera
+	~	Toneladas/Year
+	~	Cantidad de CO2 que es expulsado al aire por especies marinas.
+	|
+
+CO2 Por industria=
+	1e+06
+	~	Toneladas/industria/Year
+	~	Toneladas de CO2 que expulsa una industria promeido al año
+	|
+
+CO2 a H2CO3=
+	CO2 En la atmosfera*Absorcion de CO2 por plantas marinas
+	~	Toneladas/Year
+	~	Toneladas de CO2 que es absorbido por las plantas marinas al año
+	|
+
+Tasa CO2 Ant a la atm=
+	0.98
+	~	1/Year
+	~	Tasa de CO2 emitido por la poblacion que llega a la atmosfera.
+	|
+
+CO2 capturado por arbol=
+	0.5
+	~	Toneladas/arboles/Year
+	~	Toneladas de CO2 que absorbe un arbol promedio al año
+	|
+
+Tasa mortalidad=
+	7.8
+	~	1/Year
+	~	Muertes por cada 1000 habitantes
+	|
+
+H2CO3 En la hidrosfera= INTEG (
+	CO2 a H2CO3 - H2CO3 a CO2,
+		5.6e+15)
+	~	Toneladas
+	~	Toneladas de H2CO3 (Acido carbonico) en los oceanos
+	|
+
+Población= INTEG (
+	Nacmientos-Muertes,
+		7.5e+09)
+	~	people
+	~	Población global
+	|
+
+Vehiculo a base de combustible fósil=
+	Población*Tasa de compra
+	~	vehiculos
+	~	Numero de vehiculos a base de combustible fósil en circulacion
+	|
+
+CO2 Natural por persona=
+	0.328
+	~	Toneladas/people/Year
+	~	Cantidad de CO2 emitida por el proceso natural de respiración del ser \
+		humano al año.
+	|
+
+CO2 por vehiculo=
+	2.336
+	~	Toneladas/vehiculos/Year
+	~	Toneladas de CO2 emitidas por un vehiculo al año
+	|
+
+Tasa de plantación=
+	0.213
+	~	arboles/people/Year
+	~	Cantidad de arboles plantados por una persona al año
+	|
+
+Tasa de compra=
+	0.13
+	~	vehiculos/people
+	~	Parte de la poblacion que posee un vehiculo en circulacion
+	|
+
+Tasa natalidad=
+	15
+	~	1/Year
+	~	Nacimientos por cada mil habitantes
+	|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 2120
+	~	Year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 2020
+	~	Year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,Población,385,103,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,2,48,83,103,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,1,4,0,43,22,0,0,0,-1--1--1,,1|(283,102)|
+1,4,5,2,100,0,0,22,0,0,0,-1--1--1,,1|(151,102)|
+11,5,48,215,102,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,Nacmientos,215,121,38,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,7,Tasa natalidad,132,51,46,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,8,7,5,1,0,43,0,0,64,0,-1--1--1,,1|(201,88)|
+10,9,CO2 Natural por persona,414,292,56,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,10,Tasa de compra,359,542,51,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,11,CO2 por vehiculo,536,511,57,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,12,Arboles,927,84,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,13,48,922,-92,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,14,16,12,4,0,43,22,0,0,0,-1--1--1,,1|(922,29)|
+1,15,16,13,100,0,0,22,0,0,0,-1--1--1,,1|(922,-51)|
+11,16,48,922,-11,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,17,Plantación,963,-11,33,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,18,Tasa de plantación,1090,-69,59,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,19,18,17,0,0,0,0,0,64,0,-1--1--1,,1|(1032,-43)|
+12,20,48,1164,90,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,21,23,20,4,0,0,22,0,0,0,-1--1--1,,1|(1110,90)|
+1,22,23,12,100,0,45,22,0,0,0,-1--1--1,,1|(1011,90)|
+11,23,48,1061,90,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,24,Deforestación,1061,109,44,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,25,Tasa de tala,1125,20,39,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,26,25,23,0,0,43,0,0,64,0,-1--1--1,,1|(1094,52)|
+10,27,CO2 En la atmosfera,880,319,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,28,Vehiculo a base de combustible fósil,438,456,79,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,29,1,28,1,0,0,0,0,64,0,-1--1--1,,1|(349,273)|
+1,30,10,28,0,0,43,0,0,64,0,-1--1--1,,1|(389,508)|
+12,31,48,371,-111,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,32,34,31,4,0,0,22,0,0,0,-1--1--1,,1|(371,-59)|
+1,33,34,1,100,0,45,22,0,0,0,-1--1--1,,1|(371,40)|
+11,34,48,371,-9,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,35,Muertes,406,-9,27,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,1,34,1,0,43,0,0,64,0,-1--1--1,,1|(408,39)|
+10,37,Tasa mortalidad,237,-69,57,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,38,37,34,0,0,43,0,0,64,0,-1--1--1,,1|(305,-39)|
+10,39,C En la litosfera,1199,320,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,40,42,39,4,0,43,22,0,0,0,-1--1--1,,1|(1080,333)|
+1,41,42,27,100,0,45,22,0,0,0,-1--1--1,,1|(955,333)|
+11,42,552,996,333,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,43,CO2 a C,996,350,31,11,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,44,H2CO3 En la hidrosfera,1194,463,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,45,47,27,4,0,43,22,0,0,0,-1--1--1,,1|(999,301)|
+1,46,47,39,100,0,45,22,0,0,0,-1--1--1,,1|(1124,301)|
+11,47,1080,1084,301,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,48,C a CO2,1084,320,31,11,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,49,51,27,4,0,43,22,0,0,0,-1--1--1,,1|(906,363)|
+1,50,51,44,100,0,45,22,0,0,0,-1--1--1,,1|(906,463)|
+11,51,530,906,393,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,52,H2CO3 a CO2,964,393,50,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,53,55,44,4,0,43,22,0,0,0,-1--1--1,,1|(1194,512)|
+1,54,55,27,100,0,45,22,0,0,0,-1--1--1,,1|(863,421)|
+11,55,816,863,512,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,56,CO2 a H2CO3,863,531,50,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,57,12,42,1,0,43,0,0,64,0,-1--1--1,,1|(892,263)|
+10,58,CO2 capturado por arbol,1096,384,51,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,59,58,42,0,0,43,0,0,64,0,-1--1--1,,1|(1036,353)|
+10,60,"CO2 Expulsado desde la superficie (No Ant)",1131,224,73,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,61,60,47,1,0,43,0,0,64,0,-1--1--1,,1|(1125,266)|
+1,62,39,47,1,0,43,0,0,64,0,-1--1--1,,1|(1152,292)|
+10,63,Emision de CO2 Antropogenico,608,328,56,29,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,64,9,63,0,0,43,0,0,64,0,-1--1--1,,1|(503,308)|
+1,65,11,63,0,0,43,0,0,64,0,-1--1--1,,1|(565,435)|
+1,66,28,63,0,0,0,0,0,64,0,-1--1--1,,1|(510,401)|
+1,67,1,63,1,0,0,0,0,64,0,-1--1--1,,1|(443,213)|
+10,68,Tasa CO2 exp agua,997,432,48,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,69,68,51,1,0,43,0,0,64,0,-1--1--1,,1|(932,409)|
+10,70,Absorcion de CO2 por plantas marinas,803,592,75,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,71,70,56,0,0,43,0,0,64,0,-1--1--1,,1|(831,562)|
+1,72,27,56,1,0,43,0,0,64,0,-1--1--1,,1|(797,420)|
+1,73,44,51,1,0,43,0,0,64,0,-1--1--1,,1|(987,472)|
+10,74,Tasa CO2 Ant a la atm,731,225,54,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,75,CO2 Por industria,610,183,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,76,75,63,0,0,43,0,0,64,0,-1--1--1,,1|(609,239)|
+1,77,79,27,4,0,0,22,0,0,0,-1--1--1,,1|(799,319)|
+1,78,79,63,100,0,0,22,0,0,0,-1--1--1,,1|(705,319)|
+11,79,310,752,319,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,80,CO2 Ant a la atm,752,338,56,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,81,74,79,0,0,43,0,0,64,0,-1--1--1,,1|(741,271)|
+1,82,63,80,1,0,43,0,0,64,0,-1--1--1,,1|(673,361)|
+10,83,Industria,489,164,28,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,84,83,63,1,0,43,0,0,64,0,-1--1--1,,1|(522,232)|
+1,85,1,83,1,0,43,0,0,64,0,-1--1--1,,1|(468,108)|
+10,86,Industria por personas,572,108,41,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,87,86,83,1,0,43,0,0,64,0,-1--1--1,,1|(532,147)|
+10,88,"Def A/Y a Def A",956,142,54,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,89,88,12,0,0,0,0,0,64,0,-1--1--1,,1|(947,123)|
+10,90,Población,1006,23,41,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,91,90,24,0,0,43,0,0,64,0,-1--1--1,,1|(1029,60)|
+1,92,90,16,0,0,43,0,0,64,0,-1--1--1,,1|(960,4)|
+1,93,1,5,1,0,43,0,0,64,0,-1--1--1,,1|(266,41)|
+10,94,Tasa industrial,554,11,45,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,95,94,86,0,0,43,0,0,64,0,-1--1--1,,1|(560,48)|
+10,96,Trabajador por industria,672,50,49,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,97,96,86,1,0,45,0,0,64,0,-1--1--1,,1|(637,95)|
+10,98,"Co2 atm T a Co2 atm T/Y",951,246,57,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,99,98,42,0,0,0,0,0,64,0,-1--1--1,,1|(973,289)|
+1,100,27,43,1,0,0,0,0,64,0,-1--1--1,,1|(918,353)|
+///---\\\
+:L<%^E!@
+1:xd.vdfx
+9:xd
+23:0
+15:0,0,0,0,0,0
+19:100,0
+27:0,
+34:0,
+4:Time
+5:CO2 En la atmosfera
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:0
+41:0
+42:0
+72:0
+73:0
+76:0
+77:0
+78:0
+79:0
+80:0
+81:0
+24:2020
+25:2120
+26:2120
+75:
+43:
