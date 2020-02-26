@@ -305,8 +305,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -162.75}
-  m_SizeDelta: {x: 0, y: -321.5}
+  m_AnchoredPosition: {x: -0.023742676, y: -155.29999}
+  m_SizeDelta: {x: -0.05249, y: -306.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &132243443
 GameObject:
@@ -1695,10 +1695,10 @@ RectTransform:
   m_Father: {fileID: 107061318}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.027129944, y: 0}
-  m_AnchorMax: {x: 0.42738986, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.3196106}
-  m_SizeDelta: {x: 1.1, y: -0.64078}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 247.49988, y: -17.5}
+  m_SizeDelta: {x: 420.1, y: 246.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832868764
 MonoBehaviour:
@@ -2732,9 +2732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60e0af3bfd346340a6774a821c60d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapa: {fileID: 0}
-  estadisticas: {fileID: 0}
-  tienda: {fileID: 0}
+  mapa: {fileID: 107061317}
+  estadisticas: {fileID: 542006788}
+  tienda: {fileID: 1160339756}
   isShowingMapa: 0
   isShowingEstadisticas: 0
   isShowingTienda: 0
@@ -3081,10 +3081,10 @@ RectTransform:
   m_Father: {fileID: 107061318}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.45687008, y: 0}
-  m_AnchorMax: {x: 0.98425996, y: 1}
-  m_AnchoredPosition: {x: 1.539978, y: 0.32000732}
-  m_SizeDelta: {x: 24.912476, y: -0.64151}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -258.5, y: -6.300003}
+  m_SizeDelta: {x: 421.2, y: 269.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805685495
 MonoBehaviour:
