@@ -6,7 +6,7 @@ capacidad de carga muertes=
 
 Arboles= INTEG (
 	IF THEN ELSE( Arboles>Deforestación*"Def A/Y a Def A",Plantación+Nacimientos-Deforestación\
-		, 0 ),
+		, Plantación+ Nacimientos),
 		3e+12)
 	~	arboles
 	~	Numero de arboles (Si el numero de arboles es inferior al numero de \
@@ -57,7 +57,7 @@ efecto sobre las muertes = WITH LOOKUP (
 	~		|
 
 Tasa nat arboles=
-	0.009
+	0.0009
 	~	1/Year
 	~		|
 
@@ -280,7 +280,7 @@ Tasa natalidad=
 		Simulation Control Parameters
 	|
 
-FINAL TIME  = 2520
+FINAL TIME  = 2220
 	~	Year
 	~	The final time for the simulation.
 	|
@@ -443,7 +443,7 @@ $192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,9
 27:0,
 34:0,
 4:Time
-5:Plantación
+5:CO2 En la atmosfera
 35:Date
 36:YYYY-MM-DD
 37:2000
@@ -461,7 +461,7 @@ $192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,9
 80:0
 81:0
 24:2020
-25:2520
-26:2520
+25:2220
+26:2220
 75:
 43:
