@@ -604,4 +604,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/MainScene.unity
   - Assets/Scenes/PlayScene.unity
   - Assets/Scenes/InfoScene.unity
-  playerPath: C:/Users/Andres Casadiegos/Documents/CCExperience/Build/CCExperience.exe
+  playerPath: C:/Users/Andres Casadiegos/Documents/CCExperience.exe
