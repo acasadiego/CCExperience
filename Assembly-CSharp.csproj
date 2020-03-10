@@ -45,9 +45,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>     <Compile Include="Assets\Scripts\EstadisticasController.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\GameController2.cs" />
      <Compile Include="Assets\Scripts\GameControllerInfo.cs" />
+     <Compile Include="Assets\Scripts\MenuController.cs" />
+     <Compile Include="Assets\Scripts\PlaySceneController.cs" />
+     <Compile Include="Assets\Scripts\UsernameController.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Andres Casadiegos/Documents/CCExperience/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

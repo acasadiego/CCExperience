@@ -20,6 +20,6 @@ public class GameControllerInfo : MonoBehaviour
     }
 
     public void InfoAction(){
-        SceneManager.LoadScene(scene.buildIndex-2);
+        SceneManager.LoadScene(scene.buildIndex-3);
     }
 }
