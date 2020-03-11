@@ -20,10 +20,15 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
   sceneClasses:
     Assets/Scenes/InfoScene.unity:
     - Class: 1
@@ -151,19 +156,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9822}
     - Class: 114
+      Script: {instanceID: 9824}
+    - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
       Script: {instanceID: 10026}
     - Class: 114
+      Script: {instanceID: 10148}
+    - Class: 114
       Script: {instanceID: 10232}
+    - Class: 114
+      Script: {instanceID: 10394}
     - Class: 114
       Script: {instanceID: 10452}
     - Class: 114
       Script: {instanceID: 10568}
     - Class: 114
+      Script: {instanceID: 10748}
+    - Class: 114
       Script: {instanceID: 11010}
     - Class: 114
+      Script: {instanceID: 11340}
+    - Class: 114
       Script: {instanceID: 11350}
+    - Class: 114
+      Script: {instanceID: 11364}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -452,7 +469,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: f626c4ac405bac54799bde345352340c
+      Hash: cd230bee77f34ac0f8debba00abc142e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EstadisticasController
@@ -678,4 +695,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/UserNameScene.unity
   - Assets/Scenes/PlayScene.unity
   - Assets/Scenes/InfoScene.unity
-  playerPath: C:/Users/BRAYAN/Unity/ProyectoG/CCExperience/Build/CCExperience.exe
+  playerPath: C:/Users/Andres Casadiegos/Documents/CCExperience/Build/CCExperience.exe

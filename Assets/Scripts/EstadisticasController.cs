@@ -9,7 +9,7 @@ public class EstadisticasController : MonoBehaviour
 
 
     public Text txtCo2Atmosfera;
-    public Text txtYear,txtPoblacion;
+    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles;
 
     double year,trillon,billon;
     double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
@@ -28,6 +28,16 @@ public class EstadisticasController : MonoBehaviour
         billon = 1000000000;
 
 
+        InicializarVariablesModelo();
+        ActualizarValores();
+        
+
+    }
+
+    // Update is called once per frame
+
+    public void InicializarVariablesModelo()
+    {
         year = 2020;
         poblacion = 7500000000;
         co2Atmosfera = 224000000000000;
@@ -71,12 +81,7 @@ public class EstadisticasController : MonoBehaviour
         h2CO3Hidrosfera = 5600000000000000;
         tasaCO2ExpAgua = 0.000001;
         h2CO3ACO2 = h2CO3Hidrosfera*tasaCO2ExpAgua;
-        ActualizarValores();
-        
-
     }
-
-    // Update is called once per frame
 
     public void VerResultados()
     {
@@ -119,6 +124,8 @@ public class EstadisticasController : MonoBehaviour
     {
         txtCo2Atmosfera.text = "Toneladas de CO2 en la atmosfera: " + (long)(co2Atmosfera/trillon) + "T";
         txtPoblacion.text = "Poblacion: " + (long)(poblacion/billon) + "B";
+        txtCo2Ant.text = "Toneladas de CO2 generado por humanos: " + (long)(emisionCo2Ant/trillon) + "T";
+        txtArboles.text = "Arboles: " + (long)(arboles/trillon) + "T";
         txtYear.text = "Año: " + year;
     }
     
