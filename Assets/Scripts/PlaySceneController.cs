@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlaySceneController : MonoBehaviour
 {
     private Scene scene;
-    public GameObject mapa, estadisticas, tienda;
-    public bool isShowingMapa, isShowingEstadisticas, isShowingTienda;
+    public GameObject mapa, estadisticas, tienda, info;
+    public TextAsset ChinaTxt, EstadosuTxt, AlemaniaTxt, ArabiasTxt, BrasilTxt;
+    public bool isShowingMapa, isShowingEstadisticas, isShowingTienda, isShowingInfo;
 
     // Start is called before the first frame update
     void Start()
@@ -60,5 +62,40 @@ public class PlaySceneController : MonoBehaviour
 
     public void SaltarAction(){
         
+    }
+
+    public void ChinaAction(){
+        isShowingInfo = true;
+        info.GetComponent<UnityEngine.UI.Text>().text = ChinaTxt.text;
+        info.SetActive(isShowingInfo);
+    }
+
+    public void EstadosuAction(){
+        isShowingInfo = true;
+        info.GetComponent<UnityEngine.UI.Text>().text = EstadosuTxt.text;
+        info.SetActive(isShowingInfo);
+    }
+
+    public void AlemaniaAction(){
+        isShowingInfo = true;
+        info.GetComponent<UnityEngine.UI.Text>().text = AlemaniaTxt.text;
+        info.SetActive(isShowingInfo);
+    }
+
+    public void ArabiasAction(){
+        isShowingInfo = true;
+        info.GetComponent<UnityEngine.UI.Text>().text = ArabiasTxt.text;
+        info.SetActive(isShowingInfo);
+    }
+
+    public void BrasilAction(){
+        isShowingInfo = true;
+        info.GetComponent<UnityEngine.UI.Text>().text = BrasilTxt.text;
+        info.SetActive(isShowingInfo);
+    }
+
+    public void BackAction(){
+        isShowingInfo = false;
+        info.SetActive(isShowingInfo);
     }
 }

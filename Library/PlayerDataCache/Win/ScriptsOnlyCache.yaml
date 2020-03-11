@@ -6,6 +6,12 @@ ScriptsOnlyBuild:
     - MenuController
     - PlaySceneController
     - UsernameController
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -126,7 +132,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -240,7 +254,7 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: e7dee31a973d4887629a32f9c348299a
+      Hash: 85ca8b4cde81760730f43449b8f589df
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlaySceneController
@@ -664,4 +678,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/UserNameScene.unity
   - Assets/Scenes/PlayScene.unity
   - Assets/Scenes/InfoScene.unity
-  playerPath: C:/Users/Andres Casadiegos/Documents/CCExperience/Build/CCExperience.exe
+  playerPath: C:/Users/BRAYAN/Unity/ProyectoG/CCExperience/Build/CCExperience.exe
