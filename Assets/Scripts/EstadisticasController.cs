@@ -11,7 +11,7 @@ public class EstadisticasController : MonoBehaviour
     public Text txtCo2Atmosfera;
     public Text txtYear,txtPoblacion;
 
-    double year;
+    double year,trillon,billon;
     double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
     double emisionCo2Ant,industria,tasaIndustrial,trabajadorIndustria,industriaPersonas,co2Industria,co2Persona,tasaCompra,vehiculoCombustible,co2Vehiculo,plasticoQuemado,tasaQuema,co2PlasticoQuemado,co2AntAtm,tasaCo2AntAtm;
 
@@ -24,12 +24,18 @@ public class EstadisticasController : MonoBehaviour
     double arboles,nacimientosArb,tasaNatalidadArb,tasaPlantacion,plantacion,tasaTala,capacidadCargaIncendios,tasaIncendios,deforestacion;
     void Awake()
     {
+        trillon = 1000000000000;
+        billon = 1000000000;
+
+
         year = 2020;
         poblacion = 7500000000;
+        co2Atmosfera = 224000000000000;
+        capacidadCargaMuertes = 324000000000000;
+        capacidadCargaIncendios = 224000000000000;
         tasaDeNatalidad = 15;
         tasaDeMortalidad= 7.8;
-        efectoSobreMuertes= 1;
-        capacidadCargaMuertes= 324000000000000;
+        EfectoMuertes();
         muertes = (tasaDeMortalidad*poblacion*efectoSobreMuertes)/1000;
         nacimientos = (tasaDeNatalidad*poblacion)/1000;
         emisionCo2Ant = 0;
@@ -53,10 +59,8 @@ public class EstadisticasController : MonoBehaviour
         nacimientosArb=arboles*tasaNatalidadArb;
         plantacion = 0;
         tasaTala = 0.315;
-        capacidadCargaIncendios = 224000000000000;
-        tasaIncendios = 1;
+        TasaIncendios();
         deforestacion = poblacion*tasaTala*tasaIncendios;
-        co2Atmosfera = 224000000000000;
         absorcionCO2PlanMar = 0.001;
         co2AH2CO3 = co2Atmosfera*absorcionCO2PlanMar;
         co2CapturadoArbol = 0.7;
@@ -97,7 +101,7 @@ public class EstadisticasController : MonoBehaviour
         if(arboles>deforestacion){arboles= arboles + plantacion + nacimientos - deforestacion;}
         else{arboles= arboles + plantacion - nacimientos;}
         TasaIncendios();
-        nacimientos = tasaNatalidadArb*arboles;
+        nacimientosArb = tasaNatalidadArb*arboles;
         plantacion = tasaPlantacion*poblacion;
         deforestacion = poblacion * tasaTala * tasaIncendios;
         cLitosfera = cLitosfera + co2AC - cACO2; 
@@ -113,8 +117,8 @@ public class EstadisticasController : MonoBehaviour
 
     void ActualizarValores()
     {
-        txtCo2Atmosfera.text = "Toneladas de CO2 en la atmosfera: " + co2Atmosfera;
-        txtPoblacion.text = "Poblacion: " + poblacion;
+        txtCo2Atmosfera.text = "Toneladas de CO2 en la atmosfera: " + (long)(co2Atmosfera/trillon) + "T";
+        txtPoblacion.text = "Poblacion: " + (long)(poblacion/billon) + "B";
         txtYear.text = "Año: " + year;
     }
     
@@ -122,33 +126,18 @@ public class EstadisticasController : MonoBehaviour
     void EfectoMuertes()
     {
         double oper = co2Atmosfera / capacidadCargaMuertes;
-        if(oper>=0 && oper<2){efectoSobreMuertes=1;}
-        else if(oper>=2 && oper<3){efectoSobreMuertes=1.3;}
-        else if(oper>=3 && oper<4){efectoSobreMuertes=1.5;}
-        else if(oper>=4 && oper<5){efectoSobreMuertes=1.7;}
-        else if(oper>=5 && oper<6){efectoSobreMuertes=1.9;}
-        else if(oper>=6 && oper<7){efectoSobreMuertes=2.1;}
-        else if(oper>=7 && oper<8){efectoSobreMuertes=2.3;}
-        else if(oper>=8 && oper<9){efectoSobreMuertes=2.5;}
-        else if(oper>=9 && oper<10){efectoSobreMuertes=2.7;}
-        else if(oper>=10){efectoSobreMuertes=3.2;}
+        
+         efectoSobreMuertes = 0.9 + (oper*0.2);
+        
 
     }
 
     void TasaIncendios()
     {
         double oper = co2Atmosfera / capacidadCargaIncendios;
-        if(oper>=0 && oper<1){tasaIncendios=1;}
-        else if(oper>=1 && oper<2){tasaIncendios=1.15;}
-        else if(oper>=2 && oper<3){tasaIncendios=1.15;}
-        else if(oper>=3 && oper<4){tasaIncendios=1.2;}
-        else if(oper>=4 && oper<5){tasaIncendios=1.25;}
-        else if(oper>=5 && oper<6){tasaIncendios=1.3;}
-        else if(oper>=6 && oper<7){tasaIncendios=1.35;}
-        else if(oper>=7 && oper<8){tasaIncendios=1.4;}
-        else if(oper>=8 && oper<9){tasaIncendios=1.45;}
-        else if(oper>=9 && oper<10){tasaIncendios=1.5;}
-        else if(oper>=10){tasaIncendios=1.8;}
+       
+        tasaIncendios = 1.05 + (oper*0.05);
+        
 
     }
 }

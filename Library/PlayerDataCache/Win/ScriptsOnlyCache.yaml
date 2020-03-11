@@ -43,15 +43,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10056}
+      Script: {instanceID: 10058}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10232}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 11008}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 11348}
+      Script: {instanceID: 11350}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -90,15 +90,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10232}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 10826}
+      Script: {instanceID: 10828}
     - Class: 114
-      Script: {instanceID: 11008}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 11348}
+      Script: {instanceID: 11350}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -139,17 +139,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10026}
     - Class: 114
-      Script: {instanceID: 10450}
+      Script: {instanceID: 10232}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10452}
     - Class: 114
-      Script: {instanceID: 11008}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 11348}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 25716}
+      Script: {instanceID: 11350}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -188,17 +188,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10230}
+      Script: {instanceID: 10026}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10232}
     - Class: 114
-      Script: {instanceID: 10746}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 11008}
+      Script: {instanceID: 10748}
     - Class: 114
-      Script: {instanceID: 11348}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 25716}
+      Script: {instanceID: 11350}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -334,6 +334,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: PhysicsRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: 90d346b2a77f2119f3b14e7ae9f572fa
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UsernameController
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -652,12 +658,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 90d346b2a77f2119f3b14e7ae9f572fa
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UsernameController
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainScene.unity

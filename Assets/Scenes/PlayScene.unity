@@ -657,25 +657,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 24
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
+    m_BestFit: 1
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Poblacion global: 0B'
 --- !u!222 &273685184
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -698,10 +698,10 @@ RectTransform:
   m_Father: {fileID: 570135052}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -127.7, y: -51.25}
-  m_SizeDelta: {x: 440.5, y: 30}
+  m_AnchorMin: {x: 0.11621607, y: 0.39252827}
+  m_AnchorMax: {x: 0.4412087, y: 0.5615963}
+  m_AnchoredPosition: {x: 1.9349976, y: 1.5}
+  m_SizeDelta: {x: -2.1299973, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &278129557
 GameObject:
@@ -1225,25 +1225,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 24
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 80
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Toneladas de CO2 en la atmosfera: 0T.'
 --- !u!222 &527647893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1266,10 +1266,10 @@ RectTransform:
   m_Father: {fileID: 570135052}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.9, y: -18.1}
-  m_SizeDelta: {x: 441.9, y: 96.3}
+  m_AnchorMin: {x: 0.12738146, y: 0.6805963}
+  m_AnchorMax: {x: 0.6272303, y: 0.8485389}
+  m_AnchoredPosition: {x: 2.100006, y: -2.5}
+  m_SizeDelta: {x: 14.199997, y: -1.5999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &564467834
 GameObject:
@@ -1509,8 +1509,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.275, y: -140.33}
-  m_SizeDelta: {x: 845.5, y: 196.35}
+  m_AnchoredPosition: {x: 0.065899, y: -76.818}
+  m_SizeDelta: {x: 716.5, y: 232.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &570135053
 MonoBehaviour:
@@ -1534,7 +1534,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
@@ -2779,7 +2779,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1873208004}
-        m_MethodName: VerResultados
+        m_MethodName: "AvanzarA\xF1o"
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
