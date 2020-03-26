@@ -29,6 +29,8 @@ public class EstadisticasController : MonoBehaviour
    
      private List<int> datosGrafica;
 
+     bool inicio = true;
+
 
  double yearACT, poblacionACT, co2AtmosferaACT, muertesACT, nacimientosACT, industriaACT, vehiculoCombustibleACT, plasticoQuemadoACT,
                     emisionCo2AntACT, co2AntAtmACT, arbolesACT, nacimientosArbACT, plantacionACT, deforestacionACT, cLitosferaACT, h2CO3HidrosferaACT, co2ACACT,
@@ -118,14 +120,20 @@ public class EstadisticasController : MonoBehaviour
 
 
         Window_Graph.window_Graph.setvalueList(datosGrafica);
+        datosGrafica.Clear();
         RecuperarDatosActuales();
 
-        ActualizarValores();
+
+        
+         ActualizarValores(); 
+       
 
     }
 
     public void VerResultados()
     {
+
+        datosGrafica = new List<int>();
         MantenerDatosActuales();
         
         
@@ -143,10 +151,16 @@ public class EstadisticasController : MonoBehaviour
             for(int i = 0;i<tiempo;i++)
             {
               AvanzarAño();
+              datosGrafica.Add((int)(co2Atmosfera/trillon));
             }
 
             simulacion = false;
         }
+
+
+        
+        Window_Graph.window_Graph.setvalueList(datosGrafica);
+        datosGrafica.Clear();
         
         ActualizarValores();
 

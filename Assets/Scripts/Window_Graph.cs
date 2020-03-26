@@ -51,7 +51,7 @@ public class Window_Graph : MonoBehaviour {
         }
 
         float graphHeight = graphContainer.sizeDelta.y;
-        yMaximum = 350f;
+        yMaximum = 600f;
         float xSize = graphContainer.sizeDelta.x/valueList.Count;
 
         GameObject lastCircleGameObject = null;
@@ -132,7 +132,7 @@ public class Window_Graph : MonoBehaviour {
         {
             if(datosGrafica[i] < datosGrafica[i+1])
             {
-                yMaximum = datosGrafica[i+1];
+                yMaximum = datosGrafica[i+1] + 100;
             }
         }
     }
