@@ -14,15 +14,20 @@ public class Window_Graph : MonoBehaviour {
     private RectTransform dashTemplateX;
     private RectTransform dashTemplateY;
 
+    private List<int> datosGrafica;
+
+    private float yMaximum;
+
+    public static Window_Graph window_Graph;
+
     private void Awake() {
+        window_Graph = this;
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         dashTemplateX = graphContainer.Find("dashTemplateX").GetComponent<RectTransform>();
         dashTemplateY = graphContainer.Find("dashTemplateY").GetComponent<RectTransform>();
-
-        List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
-        ShowGraph(valueList, (int _i) => "Day "+(_i+1), (float _f) => "$" + Mathf.RoundToInt(_f));
+        
     }
 
     private GameObject CreateCircle(Vector2 anchoredPosition) {
@@ -46,7 +51,7 @@ public class Window_Graph : MonoBehaviour {
         }
 
         float graphHeight = graphContainer.sizeDelta.y;
-        float yMaximum = 100f;
+        yMaximum = 350f;
         float xSize = graphContainer.sizeDelta.x/valueList.Count;
 
         GameObject lastCircleGameObject = null;
@@ -108,5 +113,28 @@ public class Window_Graph : MonoBehaviour {
 
             return n;
         }
+
+
+    public void setvalueList(List<int> datosGrafica)  
+    {
+
+        this.datosGrafica = datosGrafica;
+        /*setyMaximum();*/
+        ShowGraph(datosGrafica, (int _i) => "Day "+(_i+2020), (float _f) => "$" + Mathf.RoundToInt(_f));
+        
+    }
+
+    public void setyMaximum()
+    {
+        yMaximum = datosGrafica[0];
+
+        for(int i=0;i<datosGrafica.Count-1;i++)
+        {
+            if(datosGrafica[i] < datosGrafica[i+1])
+            {
+                yMaximum = datosGrafica[i+1];
+            }
+        }
+    }
 }
 

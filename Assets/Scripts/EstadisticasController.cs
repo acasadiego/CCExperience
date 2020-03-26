@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class EstadisticasController : MonoBehaviour
 {
 
-
+    //Declaracion de niveles, flujos y variables auxiliares del modelo como variables de C#.
     public Text txtCo2Atmosfera;
-    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles;
+    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles,txtYearSimulacion;
 
-    double year,trillon,billon;
+    double year,yearSimulacion,trillon,billon,millon;
     double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
     double emisionCo2Ant,industria,tasaIndustrial,trabajadorIndustria,industriaPersonas,co2Industria,co2Persona,tasaCompra,vehiculoCombustible,co2Vehiculo,plasticoQuemado,tasaQuema,co2PlasticoQuemado,co2AntAtm,tasaCo2AntAtm;
 
@@ -22,14 +22,32 @@ public class EstadisticasController : MonoBehaviour
     double h2CO3Hidrosfera,h2CO3ACO2,tasaCO2ExpAgua;
 
     double arboles,nacimientosArb,tasaNatalidadArb,tasaPlantacion,plantacion,tasaTala,capacidadCargaIncendios,tasaIncendios,deforestacion;
+
+    bool simulacion;
+
+     public static EstadisticasController estadisticasController;
+   
+     private List<int> datosGrafica;
+
+
+ double yearACT, poblacionACT, co2AtmosferaACT, muertesACT, nacimientosACT, industriaACT, vehiculoCombustibleACT, plasticoQuemadoACT,
+                    emisionCo2AntACT, co2AntAtmACT, arbolesACT, nacimientosArbACT, plantacionACT, deforestacionACT, cLitosferaACT, h2CO3HidrosferaACT, co2ACACT,
+                        cACO2ACT, co2AH2CO3ACT, h2CO3ACO2ACT;
+
     void Awake()
     {
-        trillon = 1000000000000;
-        billon = 1000000000;
+
+        estadisticasController = this;
+        this.trillon = 1000000000000;
+        this.billon = 1000000000;
+        this.millon = 1000000;
+        this.simulacion = false;
 
 
         InicializarVariablesModelo();
         ActualizarValores();
+        MantenerDatosActuales();
+        ActualizarGrafica();
         
 
     }
@@ -38,7 +56,10 @@ public class EstadisticasController : MonoBehaviour
 
     public void InicializarVariablesModelo()
     {
+
+        //Valores iniciales de las variables del modelo para el año 2020.
         year = 2020;
+        yearSimulacion = year;
         poblacion = 7500000000;
         co2Atmosfera = 224000000000000;
         capacidadCargaMuertes = 324000000000000;
@@ -83,15 +104,113 @@ public class EstadisticasController : MonoBehaviour
         h2CO3ACO2 = h2CO3Hidrosfera*tasaCO2ExpAgua;
     }
 
+    public void ActualizarGrafica()
+    {
+        datosGrafica = new List<int>();
+
+        MantenerDatosActuales();
+
+        for(int i = 0;i<100;i++)
+        {
+              AvanzarAño();
+              datosGrafica.Add((int)(co2Atmosfera/trillon));
+        }
+
+
+        Window_Graph.window_Graph.setvalueList(datosGrafica);
+        RecuperarDatosActuales();
+
+        ActualizarValores();
+
+    }
+
     public void VerResultados()
     {
-        for(int i = 0;i<=2000;i++)
+        MantenerDatosActuales();
+        
+        
+        try
+        { this.yearSimulacion = double.Parse(txtYearSimulacion.text);}
+        catch{}
+        
+        double tiempo = yearSimulacion - yearACT;
+
+        if (tiempo>0)
         {
-            AvanzarAño();
+            this.simulacion = true;
+
+
+            for(int i = 0;i<tiempo;i++)
+            {
+              AvanzarAño();
+            }
+
+            simulacion = false;
         }
+        
+        ActualizarValores();
+
+        
+
+        RecuperarDatosActuales();
+    }
+
+    public void MantenerDatosActuales()
+    {
+
+
+        yearACT = year;
+        poblacionACT = poblacion;
+        co2AtmosferaACT = co2Atmosfera;
+        muertesACT = muertes;
+        nacimientosACT = nacimientos;
+        industriaACT = industria;
+        vehiculoCombustibleACT = vehiculoCombustible;
+        plasticoQuemadoACT = plasticoQuemado;
+        emisionCo2AntACT = emisionCo2Ant;
+        co2AntAtmACT = co2AntAtm;
+        arbolesACT = arboles;
+        nacimientosArbACT = nacimientosArb;
+        plantacionACT = plantacion;
+        deforestacionACT = deforestacion;
+        cLitosferaACT = cLitosfera; 
+        h2CO3HidrosferaACT = h2CO3Hidrosfera;
+        co2ACACT = co2AC;
+        cACO2ACT = cACO2;
+        co2AH2CO3ACT = co2AH2CO3;
+        h2CO3ACO2ACT = h2CO3ACO2;
+
+        
+    }
+
+    public void RecuperarDatosActuales()
+    {
+        year = yearACT;
+        poblacion = poblacionACT;
+        co2Atmosfera = co2AtmosferaACT;
+        muertes = muertesACT;
+        nacimientos = nacimientosACT;
+        industria = industriaACT;
+        vehiculoCombustible = vehiculoCombustibleACT;
+        plasticoQuemado = plasticoQuemadoACT;
+        emisionCo2Ant = emisionCo2AntACT;
+        co2AntAtm = co2AntAtmACT;
+        arboles = arbolesACT;
+        nacimientosArb = nacimientosArbACT;
+        plantacion = plantacionACT;
+        deforestacion = deforestacionACT;
+        cLitosfera = cLitosferaACT;
+        h2CO3Hidrosfera = h2CO3HidrosferaACT;
+        co2AC = co2ACACT;
+        cACO2 = cACO2ACT;
+        co2AH2CO3 = co2AH2CO3ACT;
+        h2CO3ACO2 = h2CO3ACO2ACT;
+
     }
     public void AvanzarAño()
     {
+
+        //Ecuaciones de los niveles y flujos del modelo.
         year++;
         poblacion = poblacion + nacimientos - muertes;
         co2Atmosfera = co2Atmosfera + cACO2 + co2AntAtm + h2CO3ACO2 - co2AC - co2AH2CO3;
@@ -122,14 +241,72 @@ public class EstadisticasController : MonoBehaviour
 
     void ActualizarValores()
     {
-        txtCo2Atmosfera.text = "Toneladas de CO2 en la atmosfera: " + (long)(co2Atmosfera/trillon) + "T";
-        txtPoblacion.text = "Poblacion: " + (long)(poblacion/billon) + "B";
-        txtCo2Ant.text = "Toneladas de CO2 generado por humanos: " + (long)(emisionCo2Ant/trillon) + "T";
-        txtArboles.text = "Arboles: " + (long)(arboles/trillon) + "T";
-        txtYear.text = "Año: " + year;
+        double cantidad = 1;
+        string unidad = "";
+
+        cantidad = DeterminarUnidad(co2Atmosfera);
+        unidad = DeterminarUnidadTexto(cantidad);
+        txtCo2Atmosfera.text = "Toneladas de CO2 en la atmosfera: " + (float)(co2Atmosfera/cantidad) + unidad;
+
+        cantidad = DeterminarUnidad(poblacion);
+        unidad = DeterminarUnidadTexto(cantidad);
+        txtPoblacion.text = "Poblacion: " + (float)(poblacion/cantidad) + unidad;
+
+        cantidad = DeterminarUnidad(emisionCo2Ant);
+        unidad = DeterminarUnidadTexto(cantidad);
+        txtCo2Ant.text = "Toneladas de CO2 generado por humanos: " + (float)(emisionCo2Ant/cantidad) + unidad;
+
+        cantidad = DeterminarUnidad(arboles);
+        unidad = DeterminarUnidadTexto(cantidad);
+        txtArboles.text = "Arboles: " + (float)(arboles/cantidad) + unidad;
+
+        if(simulacion == false)
+        {txtYear.text = "Año: " + year;}
+        
+    }
+
+    double DeterminarUnidad(double valor)
+    {
+        double cantidad = 1;
+
+        if(valor >= millon && valor <billon )
+        {
+            cantidad = millon;
+        }
+        else if(valor >= billon && valor<trillon)
+        {
+            cantidad = billon;
+        }
+        else if(valor >= trillon)
+        {
+            cantidad = trillon;
+        }
+
+        return cantidad;
+    }
+
+    string DeterminarUnidadTexto(double cantidad)
+    {
+        string unidad = "";
+
+        if(cantidad == millon)
+        {
+            unidad = " Mill";
+        }
+        else if (cantidad == billon)
+        {
+            unidad = " Bill";
+        }
+        else if (cantidad == trillon)
+        {
+            unidad = " Trill";
+        }
+            
+        return unidad;
     }
     
 
+//Metodo que representa el comportamiento del Lookup efecto sobre las muertes del modelo.
     void EfectoMuertes()
     {
         double oper = co2Atmosfera / capacidadCargaMuertes;
@@ -139,6 +316,8 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
+
+//Metodo que representa el comportamiento del Lookup tasa de incendios forestales del modelo.    
     void TasaIncendios()
     {
         double oper = co2Atmosfera / capacidadCargaIncendios;
@@ -146,5 +325,10 @@ public class EstadisticasController : MonoBehaviour
         tasaIncendios = 1.05 + (oper*0.05);
         
 
+    }
+
+    public List<int> getdatosGrafica()
+    {
+        return datosGrafica;
     }
 }

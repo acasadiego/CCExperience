@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Segunda forma de salirse de la app.
         if (Input.GetKey("escape"))
             Application.Quit();
     }
