@@ -8,9 +8,14 @@ public class EstadisticasController : MonoBehaviour
 {
 
     //Declaracion de niveles, flujos y variables auxiliares del modelo como variables de C#.
-    public Text txtCo2Atmosfera;
-    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles,txtYearSimulacion;
 
+
+    //Variables correspondientes a text.
+    public Text txtCo2Atmosfera;
+    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles,txtYearSimulacion, txtEjeY;
+
+
+//Variables del modelo dinamico sistemico (Sujetas a simulacion)
     double year,yearSimulacion,trillon,billon,millon;
     double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
     double emisionCo2Ant,industria,tasaIndustrial,trabajadorIndustria,industriaPersonas,co2Industria,co2Persona,tasaCompra,vehiculoCombustible,co2Vehiculo,plasticoQuemado,tasaQuema,co2PlasticoQuemado,co2AntAtm,tasaCo2AntAtm;
@@ -23,15 +28,19 @@ public class EstadisticasController : MonoBehaviour
 
     double arboles,nacimientosArb,tasaNatalidadArb,tasaPlantacion,plantacion,tasaTala,capacidadCargaIncendios,tasaIncendios,deforestacion;
 
-    bool simulacion;
+//Variable que indica cuando se está realizando una simulación, para que el TEXT del año actual no se vea alterado por ello.
+    bool simulacion; 
+    int lapsoSimulacionGrafica;
 
-     public static EstadisticasController estadisticasController;
-   
+    int espacioAños; //Espacio entre años del eje X de la grafica (Ej: la grafica solo mostrará años de 10 en 10, luego espacioAños = 10)
+
+
+//Lista donde se almacenan los datos que se mostrarán en la gráfica.
      private List<int> datosGrafica;
 
-     bool inicio = true;
 
 
+//Variables del modelo dinamico sistemico (Que se encargan de almacenar los valores del AÑO ACTUAL)
  double yearACT, poblacionACT, co2AtmosferaACT, muertesACT, nacimientosACT, industriaACT, vehiculoCombustibleACT, plasticoQuemadoACT,
                     emisionCo2AntACT, co2AntAtmACT, arbolesACT, nacimientosArbACT, plantacionACT, deforestacionACT, cLitosferaACT, h2CO3HidrosferaACT, co2ACACT,
                         cACO2ACT, co2AH2CO3ACT, h2CO3ACO2ACT;
@@ -39,17 +48,18 @@ public class EstadisticasController : MonoBehaviour
     void Awake()
     {
 
-        estadisticasController = this;
         this.trillon = 1000000000000;
         this.billon = 1000000000;
         this.millon = 1000000;
         this.simulacion = false;
+        this.lapsoSimulacionGrafica = 100;
+        this.espacioAños = 10;
 
 
         InicializarVariablesModelo();
-        ActualizarValores();
         MantenerDatosActuales();
         ActualizarGrafica();
+        ActualizarValores();
         
 
     }
@@ -108,35 +118,45 @@ public class EstadisticasController : MonoBehaviour
 
     public void ActualizarGrafica()
     {
+        //Actualiza la gráfica de la variable seleccionada. 
+
         datosGrafica = new List<int>();
+        int yearGrafica = (int)year;
+        double cantidad = DeterminarUnidad(co2Atmosfera); 
 
-        MantenerDatosActuales();
-
-        for(int i = 0;i<100;i++)
+        for(int i = 0;i<lapsoSimulacionGrafica;i++)
         {
-              AvanzarAño();
-              datosGrafica.Add((int)(co2Atmosfera/trillon));
+            this.simulacion = true;
+            AvanzarAño();
+
+            if(i%espacioAños==0)
+            { 
+              datosGrafica.Add((int)(co2Atmosfera/cantidad));
+            }
+
         }
 
-
-        Window_Graph.window_Graph.setvalueList(datosGrafica);
+        txtEjeY.text = "Toneladas (" + DeterminarUnidadTexto(cantidad) + ")";
+        Window_Graph.window_Graph.cleanGraphic();
+        Window_Graph.window_Graph.setvalueList(datosGrafica,yearGrafica);
         datosGrafica.Clear();
         RecuperarDatosActuales();
 
-
-        
-         ActualizarValores(); 
-       
+ 
+         
+        simulacion = false;
 
     }
 
     public void VerResultados()
     {
+        //Muestra en la escena una simulación de las variables en un año especifico. 
 
         datosGrafica = new List<int>();
+        double cantidad = DeterminarUnidad(co2Atmosfera); 
         MantenerDatosActuales();
         
-        
+        //¡MOMENTANEO! (Cambiar luego para mejora del código) Se hace un try catch en caso de que el usuario ingrese un valor NO número en la text box.
         try
         { this.yearSimulacion = double.Parse(txtYearSimulacion.text);}
         catch{}
@@ -151,28 +171,26 @@ public class EstadisticasController : MonoBehaviour
             for(int i = 0;i<tiempo;i++)
             {
               AvanzarAño();
-              datosGrafica.Add((int)(co2Atmosfera/trillon));
+              
             }
 
-            simulacion = false;
+            
         }
 
-
-        
-        Window_Graph.window_Graph.setvalueList(datosGrafica);
         datosGrafica.Clear();
         
         ActualizarValores();
+        ActualizarGrafica();
 
         
-
-        RecuperarDatosActuales();
+        simulacion = false;
     }
+    
 
     public void MantenerDatosActuales()
     {
 
-
+        //Guarda los valores de las variables en el AÑO ACTUAL, para que no se pierdan al momento de realizar alguna simulación.
         yearACT = year;
         poblacionACT = poblacion;
         co2AtmosferaACT = co2Atmosfera;
@@ -197,8 +215,11 @@ public class EstadisticasController : MonoBehaviour
         
     }
 
+
     public void RecuperarDatosActuales()
     {
+
+        //Trae de vuelta los valores de las variables en el AÑO ACTUAL que hayan sido alterados por alguna simulación.
         year = yearACT;
         poblacion = poblacionACT;
         co2Atmosfera = co2AtmosferaACT;
@@ -221,6 +242,16 @@ public class EstadisticasController : MonoBehaviour
         h2CO3ACO2 = h2CO3ACO2ACT;
 
     }
+    
+    public void AvanzarAñoActual()
+    {
+        AvanzarAño(); 
+        MantenerDatosActuales();
+        ActualizarGrafica();
+        ActualizarValores(); 
+        
+    }
+    
     public void AvanzarAño()
     {
 
@@ -249,12 +280,15 @@ public class EstadisticasController : MonoBehaviour
         cACO2 = cLitosfera * cO2ExpSuperficie;
         co2AH2CO3 = co2Atmosfera * absorcionCO2PlanMar;
         h2CO3ACO2 = h2CO3Hidrosfera * tasaCO2ExpAgua;
-        ActualizarValores();
+
 
     }
 
     void ActualizarValores()
     {
+
+        //Actualiza los TEXT de las estadisticas en la escena.
+
         double cantidad = 1;
         string unidad = "";
 
@@ -281,6 +315,8 @@ public class EstadisticasController : MonoBehaviour
 
     double DeterminarUnidad(double valor)
     {
+
+        //Determina la unidad (millon, billón o trillón) en DOUBLE de un valor pasado por parametro.
         double cantidad = 1;
 
         if(valor >= millon && valor <billon )
@@ -301,6 +337,8 @@ public class EstadisticasController : MonoBehaviour
 
     string DeterminarUnidadTexto(double cantidad)
     {
+
+        //Determina la unidad (millón, billón o trillón) en STRING de un valor pasado por parametro. 
         string unidad = "";
 
         if(cantidad == millon)
@@ -341,8 +379,4 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
-    public List<int> getdatosGrafica()
-    {
-        return datosGrafica;
-    }
 }
