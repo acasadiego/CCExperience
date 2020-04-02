@@ -15,7 +15,7 @@ public class PlaySceneController : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        
+
         
     }
 
@@ -27,6 +27,7 @@ public class PlaySceneController : MonoBehaviour
 
     public void VolverAction(){
         SceneManager.LoadScene(scene.buildIndex-2);
+        ResetearDatosEstadisticas();
     }
 
     public void SalirAction(){
@@ -34,6 +35,7 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void MapaAction(){
+        ResetearDatosEstadisticas();
         isShowingEstadisticas= false;
         estadisticas.SetActive(isShowingEstadisticas);
         isShowingTienda = false;
@@ -52,6 +54,7 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void TiendaAction(){
+        ResetearDatosEstadisticas();
         isShowingMapa = false;
         mapa.SetActive(isShowingMapa);
         isShowingEstadisticas= false;
@@ -60,9 +63,6 @@ public class PlaySceneController : MonoBehaviour
         tienda.SetActive(isShowingTienda);
     }
 
-    public void SaltarAction(){
-        
-    }
 
     public void ChinaAction(){
         isShowingInfo = true;
@@ -95,7 +95,16 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void BackAction(){
+        ResetearDatosEstadisticas();
         isShowingInfo = false;
         info.SetActive(isShowingInfo);
+    }
+
+    private void ResetearDatosEstadisticas()
+    {
+        if(isShowingEstadisticas==true)
+        {
+            EstadisticasController.estadisticasController.ResetearDatos();
+        }
     }
 }

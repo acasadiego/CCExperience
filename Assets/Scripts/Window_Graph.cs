@@ -138,7 +138,7 @@ public class Window_Graph : MonoBehaviour {
         {
             if(datosGrafica[i] < datosGrafica[i+1])
             {
-                yMaximum = datosGrafica[i+1] + 100;
+                yMaximum = datosGrafica[i+1];
             }
         }
     }

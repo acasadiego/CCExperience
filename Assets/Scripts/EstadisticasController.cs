@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class EstadisticasController : MonoBehaviour
 {
 
+    public static EstadisticasController estadisticasController;
+
     //Declaracion de niveles, flujos y variables auxiliares del modelo como variables de C#.
 
 
@@ -32,6 +34,8 @@ public class EstadisticasController : MonoBehaviour
     bool simulacion; 
     int lapsoSimulacionGrafica;
 
+    string variableGrafica;
+
     int espacioAños; //Espacio entre años del eje X de la grafica (Ej: la grafica solo mostrará años de 10 en 10, luego espacioAños = 10)
 
 
@@ -45,15 +49,16 @@ public class EstadisticasController : MonoBehaviour
                     emisionCo2AntACT, co2AntAtmACT, arbolesACT, nacimientosArbACT, plantacionACT, deforestacionACT, cLitosferaACT, h2CO3HidrosferaACT, co2ACACT,
                         cACO2ACT, co2AH2CO3ACT, h2CO3ACO2ACT;
 
-    void Awake()
+    void Start()
     {
-
+        estadisticasController = this;
         this.trillon = 1000000000000;
         this.billon = 1000000000;
         this.millon = 1000000;
         this.simulacion = false;
         this.lapsoSimulacionGrafica = 100;
         this.espacioAños = 10;
+        variableGrafica = "co2Atmosfera";
 
 
         InicializarVariablesModelo();
@@ -122,7 +127,7 @@ public class EstadisticasController : MonoBehaviour
 
         datosGrafica = new List<int>();
         int yearGrafica = (int)year;
-        double cantidad = DeterminarUnidad(co2Atmosfera); 
+        double cantidad = DeterminarUnidad(DeterminarVariableModelo()); 
 
         for(int i = 0;i<lapsoSimulacionGrafica;i++)
         {
@@ -131,7 +136,7 @@ public class EstadisticasController : MonoBehaviour
 
             if(i%espacioAños==0)
             { 
-              datosGrafica.Add((int)(co2Atmosfera/cantidad));
+              datosGrafica.Add((int)(DeterminarVariableModelo()/cantidad));
             }
 
         }
@@ -153,7 +158,6 @@ public class EstadisticasController : MonoBehaviour
         //Muestra en la escena una simulación de las variables en un año especifico. 
 
         datosGrafica = new List<int>();
-        double cantidad = DeterminarUnidad(co2Atmosfera); 
         MantenerDatosActuales();
         
         //¡MOMENTANEO! (Cambiar luego para mejora del código) Se hace un try catch en caso de que el usuario ingrese un valor NO número en la text box.
@@ -379,4 +383,59 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
+    public void ResetearDatos()
+    {
+        variableGrafica = "co2Atmosfera";
+        RecuperarDatosActuales();
+        ActualizarGrafica();
+        ActualizarValores();
+
+    }
+
+    public void CambiarGraficaCo2Atm()
+    {
+        variableGrafica = "co2Atmosfera";
+        ActualizarGrafica();
+    }
+
+    public void CambiarGraficaCo2Ant()
+    {
+        variableGrafica = "emisionCo2Ant";
+        ActualizarGrafica();
+    }
+
+    public void CambiarGraficaPoblacion()
+    {
+        variableGrafica = "poblacion";
+        ActualizarGrafica();
+    }
+
+    public void CambiarGraficaArboles()
+    {
+        variableGrafica = "arboles";
+        ActualizarGrafica();
+    }
+
+    public double DeterminarVariableModelo()
+    {
+        double variableModelo = co2Atmosfera;
+
+        switch(variableGrafica)
+        {
+            case "emisionCo2Ant":
+                variableModelo = emisionCo2Ant;
+                break;
+            case "poblacion":
+                variableModelo = poblacion;
+                break;
+            case "arboles":        
+                variableModelo = arboles;
+                break;
+        }
+
+        return variableModelo;
+    }
+
 }
+
+
