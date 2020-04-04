@@ -14,7 +14,8 @@ public class EstadisticasController : MonoBehaviour
 
     //Variables correspondientes a text.
     public Text txtCo2Atmosfera;
-    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles,txtYearSimulacion, txtEjeY;
+    public Text txtYear,txtPoblacion,txtCo2Ant,txtArboles, txtEjeY;
+    public InputField inpYearSimulacion;
 
 
 //Variables del modelo dinamico sistemico (Sujetas a simulacion)
@@ -34,7 +35,7 @@ public class EstadisticasController : MonoBehaviour
     bool simulacion; 
     int lapsoSimulacionGrafica;
 
-    string variableGrafica;
+    string variableGrafica,ultimoAñoSimulacion;
 
     int espacioAños; //Espacio entre años del eje X de la grafica (Ej: la grafica solo mostrará años de 10 en 10, luego espacioAños = 10)
 
@@ -131,7 +132,6 @@ public class EstadisticasController : MonoBehaviour
 
         for(int i = 0;i<lapsoSimulacionGrafica;i++)
         {
-            this.simulacion = true;
             AvanzarAño();
 
             if(i%espacioAños==0)
@@ -141,28 +141,41 @@ public class EstadisticasController : MonoBehaviour
 
         }
 
-        txtEjeY.text = "Toneladas (" + DeterminarUnidadTexto(cantidad) + ")";
+        string texto = "Toneladas";
+
+        switch(variableGrafica)
+        {
+            case "poblacion":
+                texto = "Personas";
+                break;
+            case "arboles":        
+                texto = "Arboles";
+                break;
+        }
+        
+
+        txtEjeY.text = texto + " (" + DeterminarUnidadTexto(cantidad) + ")";
         Window_Graph.window_Graph.cleanGraphic();
         Window_Graph.window_Graph.setvalueList(datosGrafica,yearGrafica);
         datosGrafica.Clear();
+
         RecuperarDatosActuales();
+        
 
  
          
-        simulacion = false;
-
     }
 
     public void VerResultados()
     {
         //Muestra en la escena una simulación de las variables en un año especifico. 
-
+        
         datosGrafica = new List<int>();
         MantenerDatosActuales();
         
         //¡MOMENTANEO! (Cambiar luego para mejora del código) Se hace un try catch en caso de que el usuario ingrese un valor NO número en la text box.
         try
-        { this.yearSimulacion = double.Parse(txtYearSimulacion.text);}
+        { this.yearSimulacion = double.Parse(inpYearSimulacion.text);}
         catch{}
         
         double tiempo = yearSimulacion - yearACT;
@@ -180,14 +193,21 @@ public class EstadisticasController : MonoBehaviour
 
             
         }
+        else
+        {   //Si el usuario ingresa un dato erroneo, o un valor equivalente al AÑO actual o menor del mismo, la simulación termina.
+            simulacion = false;
+        }
 
         datosGrafica.Clear();
         
         ActualizarValores();
         ActualizarGrafica();
 
+        /*Guarda el ultimo año de simulacion antes de resetear el texto de el input field, para luego utilizarlo
+            en caso de que se quiera ver la grafica de otra variable del modelo para el mismo año*/
+        ultimoAñoSimulacion = inpYearSimulacion.text;
+        inpYearSimulacion.text = "";
         
-        simulacion = false;
     }
     
 
@@ -249,10 +269,12 @@ public class EstadisticasController : MonoBehaviour
     
     public void AvanzarAñoActual()
     {
+        simulacion = false;
         AvanzarAño(); 
         MantenerDatosActuales();
         ActualizarGrafica();
         ActualizarValores(); 
+        inpYearSimulacion.placeholder.GetComponent<Text>().text = yearACT.ToString();
         
     }
     
@@ -385,6 +407,7 @@ public class EstadisticasController : MonoBehaviour
 
     public void ResetearDatos()
     {
+        simulacion = false;
         variableGrafica = "co2Atmosfera";
         RecuperarDatosActuales();
         ActualizarGrafica();
@@ -395,25 +418,40 @@ public class EstadisticasController : MonoBehaviour
     public void CambiarGraficaCo2Atm()
     {
         variableGrafica = "co2Atmosfera";
-        ActualizarGrafica();
+        conocerSimulacion();
     }
 
     public void CambiarGraficaCo2Ant()
     {
         variableGrafica = "emisionCo2Ant";
-        ActualizarGrafica();
+        conocerSimulacion();
     }
 
     public void CambiarGraficaPoblacion()
     {
         variableGrafica = "poblacion";
-        ActualizarGrafica();
+        conocerSimulacion();
     }
 
     public void CambiarGraficaArboles()
     {
         variableGrafica = "arboles";
-        ActualizarGrafica();
+        conocerSimulacion();
+    }
+
+
+    public void conocerSimulacion()
+    { /*Metodo para saber si la sección de estadisticas está en modo simulacion o no, para saber qué datos se deben graficar
+            al cambiar de variable*/
+
+        if(simulacion)
+        {
+            inpYearSimulacion.text = ultimoAñoSimulacion;
+            VerResultados();
+        }
+        else{
+            ActualizarGrafica();
+        }
     }
 
     public double DeterminarVariableModelo()

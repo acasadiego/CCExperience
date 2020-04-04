@@ -11,19 +11,18 @@ public class PlaySceneController : MonoBehaviour
     public TextAsset ChinaTxt, EstadosuTxt, AlemaniaTxt, ArabiasTxt, BrasilTxt;
     public bool isShowingMapa, isShowingEstadisticas, isShowingTienda, isShowingInfo;
 
+    public Text txtUserName;
+
     // Start is called before the first frame update
     void Start()
     {
+        txtUserName.text = PlayerData.playerData.getUsername();
         scene = SceneManager.GetActiveScene();
 
-        
+         
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void VolverAction(){
         SceneManager.LoadScene(scene.buildIndex-2);
@@ -45,6 +44,7 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void EstadisticasAction(){
+         
         isShowingMapa = false;
         mapa.SetActive(isShowingMapa);
         isShowingTienda = false;

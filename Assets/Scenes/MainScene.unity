@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 353378768}
   - component: {fileID: 353378767}
   m_Layer: 0
-  m_Name: button_Jugar
+  m_Name: button_Continuar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 642420755}
-        m_MethodName: JugarAction
+        m_MethodName: CotinuarAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 640137995}
   - component: {fileID: 640137994}
   m_Layer: 0
-  m_Name: button_Cargar
+  m_Name: button_NuevaPartida
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,7 +668,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 642420755}
-        m_MethodName: CargarAction
+        m_MethodName: NuevaPartidaAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -724,6 +724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 642420756}
   - component: {fileID: 642420755}
+  - component: {fileID: 642420757}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -743,6 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7814aabd4626445ad2608ea88d7cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botonContinuar: {fileID: 353378765}
 --- !u!4 &642420756
 Transform:
   m_ObjectHideFlags: 0
@@ -757,6 +759,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &642420757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642420754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c05ef0f8c0ff418555a7cc83169fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &648329961
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +839,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Cargar Partida
+  m_Text: Nueva Partida
 --- !u!222 &648329964
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -902,7 +916,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Jugar
+  m_Text: Continuar Partida
 --- !u!222 &789681528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1101,7 +1115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38334957, y: 0.18128349}
   m_AnchorMax: {x: 0.59369904, y: 0.2553981}
-  m_AnchoredPosition: {x: 1.6144028, y: 0.7659912}
+  m_AnchoredPosition: {x: 1.6144104, y: 0.7659912}
   m_SizeDelta: {x: -43, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112701913

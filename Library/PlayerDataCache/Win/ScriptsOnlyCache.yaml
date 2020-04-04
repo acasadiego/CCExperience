@@ -138,6 +138,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
@@ -158,8 +160,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 9824}
     - Class: 114
       Script: {instanceID: 9862}
-    - Class: 114
-      Script: {instanceID: 10026}
     - Class: 114
       Script: {instanceID: 10148}
     - Class: 114
@@ -272,7 +272,7 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 85ca8b4cde81760730f43449b8f589df
+      Hash: 5aa1d8a3ad74553590a1ca2fe17da8d0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlaySceneController
@@ -470,7 +470,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: 71c5ce46da40e5f29a6a294b10e26332
+      Hash: ba60c2e97a6a84dcaee5fd1fb8565462
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EstadisticasController
