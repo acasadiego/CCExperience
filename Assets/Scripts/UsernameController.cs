@@ -16,7 +16,7 @@ public class UsernameController : MonoBehaviour
 
     bool partidaExistente;
 
-    double timer;
+    double timer; //Variable que corresponderá al tiempo que durará la alerta de "nombre de usuario erroneo" en escena
 
     void Start()
     {
@@ -29,10 +29,10 @@ public class UsernameController : MonoBehaviour
     {
         if(alerta.activeSelf == true)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime; /*Si la alerta esta activada en escena, empieza a correr el tiempo en segundos*/
         }
 
-        if(timer > 4)
+        if(timer > 4) /*Cuando hayan pasado 4 segundos, la alerta desaparecerá*/
         {
             timer = 0;
             alerta.SetActive(false);
@@ -41,7 +41,7 @@ public class UsernameController : MonoBehaviour
 
     public void SiguienteAction()
     {
-        if(txtNombre.text != "" && txtNombre.text.Length > 3)
+        if(txtNombre.text != "" && txtNombre.text.Length > 3) /*El nombre de usuario debe tener mas de 3 caracteres, de lo contrario, se activará un mensaje de alerta*/
         {
             PlayerData.playerData.saveUsername(txtNombre.text);
             SceneManager.LoadScene(scene.buildIndex+1);

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 296426968}
   - component: {fileID: 296426967}
   m_Layer: 5
-  m_Name: Button
+  m_Name: button_Volver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1186250755}
   - component: {fileID: 1186250754}
   m_Layer: 5
-  m_Name: Image
+  m_Name: img_LogoCC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 1315857156}
   - component: {fileID: 1315857155}
   m_Layer: 5
-  m_Name: Text
+  m_Name: txt_Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,7 +356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24200001, y: 0}
   m_AnchorMax: {x: 0.8158208, y: 1}
-  m_AnchoredPosition: {x: 0.19999695, y: 0.5}
+  m_AnchoredPosition: {x: 0.19998169, y: 0.5}
   m_SizeDelta: {x: -3.100006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315857155
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 1333334812}
   - component: {fileID: 1333334811}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: img_LogoUnab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,7 +438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.23363201, y: 0.20661427}
-  m_AnchoredPosition: {x: 0.1000061, y: 0.5}
+  m_AnchoredPosition: {x: 0.099975586, y: 0.5}
   m_SizeDelta: {x: 0.19999695, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1333334811

@@ -13,11 +13,6 @@ public class GameControllerInfo : MonoBehaviour
         scene = SceneManager.GetActiveScene();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void InfoAction(){
         SceneManager.LoadScene(scene.buildIndex-3);

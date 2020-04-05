@@ -23,9 +23,9 @@ public class Window_Graph : MonoBehaviour {
 
     private void Awake() {
         window_Graph = this;
-        graphicObjects = new GameObject("graphicObjects");
+        graphicObjects = new GameObject("graphicObjects"); /* Se crea un objeto PADRE donde se almacenaran como hijos todos los objetos de la grafica*/
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
-        graphicObjects.transform.SetParent(graphContainer,false);
+        graphicObjects.transform.SetParent(graphContainer,false); /* El objeto graphic objects sera hijo de graphContainer*/
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         dashTemplateX = graphContainer.Find("dashTemplateX").GetComponent<RectTransform>();
@@ -35,7 +35,7 @@ public class Window_Graph : MonoBehaviour {
 
     private GameObject CreateCircle(Vector2 anchoredPosition) {
         GameObject gameObject = new GameObject("circle", typeof(Image));
-        gameObject.transform.SetParent(graphicObjects.transform,false);
+        gameObject.transform.SetParent(graphicObjects.transform,false); /*El circulo creado se hace hijo de graphicObjects*/
         gameObject.GetComponent<Image>().sprite = circleSprite;
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = anchoredPosition;
@@ -67,7 +67,7 @@ public class Window_Graph : MonoBehaviour {
             lastCircleGameObject = circleGameObject;
 
             RectTransform labelX = Instantiate(labelTemplateX);
-            labelX.transform.SetParent(graphicObjects.transform,false);
+            labelX.transform.SetParent(graphicObjects.transform,false); /*El label del eje X creado se hace hijo de graphicObjects*/
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, -7f);
             labelX.GetComponent<Text>().text = getAxisLabelX(i*10);
@@ -75,7 +75,7 @@ public class Window_Graph : MonoBehaviour {
 
             
             
-            RectTransform dashX = Instantiate(dashTemplateY);
+            RectTransform dashX = Instantiate(dashTemplateY); /*El dash del eje X creado se hace hijo de graphicObjects*/
             dashX.transform.SetParent(graphicObjects.transform,false);
             dashX.gameObject.SetActive(true);
             dashX.anchoredPosition = new Vector2(xPosition, 200);
@@ -84,15 +84,15 @@ public class Window_Graph : MonoBehaviour {
         int separatorCount = 10;
         for (int i = 0; i <= separatorCount; i++) {
             RectTransform labelY = Instantiate(labelTemplateY);
-            labelY.transform.SetParent(graphicObjects.transform,false);
+            labelY.transform.SetParent(graphicObjects.transform,false); /*El label del eje Y creado se hace hijo de graphicObjects*/
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / separatorCount;
             labelY.anchoredPosition = new Vector2(-14f, normalizedValue * graphHeight);
             labelY.GetComponent<Text>().text = getAxisLabelY(normalizedValue * yMaximum);
             labelY.GetComponent<Text>().fontSize = 15;
             
-            RectTransform dashY = Instantiate(dashTemplateX);
-            dashY.transform.SetParent(graphicObjects.transform,false);
+            RectTransform dashY = Instantiate(dashTemplateX); 
+            dashY.transform.SetParent(graphicObjects.transform,false); /*El dash del eje Y creado se hace hijo de graphicObjects*/
             dashY.gameObject.SetActive(true);
             dashY.anchoredPosition = new Vector2(340, normalizedValue * graphHeight);
         }
@@ -100,7 +100,7 @@ public class Window_Graph : MonoBehaviour {
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB) {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
-        gameObject.transform.SetParent(graphicObjects.transform,false);
+        gameObject.transform.SetParent(graphicObjects.transform,false); /*La conexion entre dos puntos creada se hace hija de graphicObjects*/
         gameObject.GetComponent<Image>().color = new Color(1,1,1, .5f);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
@@ -121,7 +121,7 @@ public class Window_Graph : MonoBehaviour {
         }
 
 
-    public void setvalueList(List<int> datosGrafica,int año)  
+    public void setvalueList(List<int> datosGrafica,int año)  /*Se inicializa una nueva grafica, pasando sus datos por parametro y el año inicial*/
     {
 
         this.datosGrafica = datosGrafica;
@@ -130,7 +130,7 @@ public class Window_Graph : MonoBehaviour {
         
     }
 
-    public void setyMaximum()
+    public void setyMaximum() /*Haya el número mayor de los datos de una grafica, para establecerlo como el "Y maximo" */
     {
         yMaximum = datosGrafica[0];
 
@@ -143,11 +143,11 @@ public class Window_Graph : MonoBehaviour {
         }
     }
 
-    public void cleanGraphic()
+    public void cleanGraphic() /*Elimina los elementos de la grafica*/
     {
-        Destroy(graphicObjects);
-        graphicObjects = new GameObject("graphicObjects");
-        graphicObjects.transform.SetParent(graphContainer,false);
+        Destroy(graphicObjects); /*Se destruye el objeto padre "graphicObjects" que contenia todos los elementos de la grafica, para asi destruirlso tambien*/
+        graphicObjects = new GameObject("graphicObjects"); /*Se crea un nuevo objeto padre, que contendrá luego nuevos elementos*/
+        graphicObjects.transform.SetParent(graphContainer,false); /*El objeto creado se hace hijo de graphContainer, tal cual como en el metodo "Awake()" de esta misma clase*/
         
     }
 }

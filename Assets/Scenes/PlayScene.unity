@@ -2446,7 +2446,7 @@ GameObject:
   - component: {fileID: 725094059}
   - component: {fileID: 725094058}
   m_Layer: 5
-  m_Name: "a\xF1o_Simulacion"
+  m_Name: "txt_a\xF1oSimulacion"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3118,7 +3118,7 @@ GameObject:
   - component: {fileID: 902587310}
   - component: {fileID: 902587309}
   m_Layer: 5
-  m_Name: "iF_A\xF1o"
+  m_Name: "inp_A\xF1o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4386,7 +4386,7 @@ GameObject:
   - component: {fileID: 1317850357}
   - component: {fileID: 1317850359}
   m_Layer: 5
-  m_Name: image_Resetear
+  m_Name: img_Resetear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6555,7 +6555,7 @@ GameObject:
   - component: {fileID: 1865326326}
   - component: {fileID: 1865326325}
   m_Layer: 5
-  m_Name: Image
+  m_Name: img_Mapa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,7 +26,7 @@ public class PlaySceneController : MonoBehaviour
 
     public void VolverAction(){
         SceneManager.LoadScene(scene.buildIndex-2);
-        ResetearDatosEstadisticas();
+        ResetearDatosEstadisticas(); /*Se cancela toda simulacion existente al volver al menu principal*/
     }
 
     public void SalirAction(){
@@ -34,7 +34,7 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void MapaAction(){
-        ResetearDatosEstadisticas();
+        ResetearDatosEstadisticas(); /*Se cancela toda simulacion existente al cambiar de pestaña*/
         isShowingEstadisticas= false;
         estadisticas.SetActive(isShowingEstadisticas);
         isShowingTienda = false;
@@ -54,7 +54,7 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void TiendaAction(){
-        ResetearDatosEstadisticas();
+        ResetearDatosEstadisticas(); /*Se cancela toda simulacion existente al cambiar de pestaña*/
         isShowingMapa = false;
         mapa.SetActive(isShowingMapa);
         isShowingEstadisticas= false;
@@ -102,7 +102,9 @@ public class PlaySceneController : MonoBehaviour
 
     private void ResetearDatosEstadisticas()
     {
-        if(isShowingEstadisticas==true)
+        /*Si estadisticas se encuentra desactivado, no tiene sentido resetear datos,
+        puesto que no se ha ejecutado ninguna simulacion*/
+        if(isShowingEstadisticas==true) 
         {
             EstadisticasController.estadisticasController.ResetearDatos();
         }

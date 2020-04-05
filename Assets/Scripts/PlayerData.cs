@@ -10,7 +10,7 @@ public class PlayerData : MonoBehaviour
     {
         playerData = this;
     }
-    public void saveUsername(string username)
+    public void saveUsername(string username) //Guarda el nombre de usuario al crear una nueva partida
     {
         PlayerPrefs.SetString("username", username);
     }
@@ -22,7 +22,7 @@ public class PlayerData : MonoBehaviour
         return username;
     }
 
-    public void deleteAllData()
+    public void deleteAllData() //Elimina todos los datos existentes de la partida
     {
         PlayerPrefs.DeleteAll();
     }

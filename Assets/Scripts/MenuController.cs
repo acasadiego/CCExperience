@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
     }
 
     public void NuevaPartidaAction(){
-        PlayerData.playerData.deleteAllData();
+        PlayerData.playerData.deleteAllData(); /*Elimina los datos de la partida anterior para crear una nueva*/
         SceneManager.LoadScene(scene.buildIndex+1);
         
     }
@@ -44,7 +44,7 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    private void ActivarContinuar()
+    private void ActivarContinuar() //Metodo para saber si ya hay una partida existente, y así mostrar el boton "continuar partida" en escena.
     {
         if(PlayerData.playerData.getUsername() == "")
         {
