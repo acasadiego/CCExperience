@@ -7,19 +7,24 @@ using UnityEngine.UI;
 public class PlaySceneController : MonoBehaviour
 {
     private Scene scene;
+
+    public static PlaySceneController playSceneController;
     public GameObject mapa, estadisticas, tienda, info;
     public TextAsset ChinaTxt, EstadosuTxt, AlemaniaTxt, ArabiasTxt, BrasilTxt;
-    public bool isShowingMapa, isShowingEstadisticas, isShowingTienda, isShowingInfo;
+    private bool isShowingMapa, isShowingEstadisticas, isShowingTienda, isShowingInfo;
 
-    public Text txtUserName;
+    public Text txtUserName, txtAñoActual;
+
+    private int añosAvanzados, añoActual;
 
     // Start is called before the first frame update
     void Start()
     {
+        playSceneController = this;
+        añoActual = 2020;
         txtUserName.text = PlayerData.playerData.getUsername();
         scene = SceneManager.GetActiveScene();
-
-         
+ 
     }
 
     // Update is called once per frame
@@ -44,13 +49,14 @@ public class PlaySceneController : MonoBehaviour
     }
 
     public void EstadisticasAction(){
-         
+
         isShowingMapa = false;
         mapa.SetActive(isShowingMapa);
         isShowingTienda = false;
         tienda.SetActive(isShowingTienda);
         isShowingEstadisticas = true;
         estadisticas.SetActive(isShowingEstadisticas);
+
     }
 
     public void TiendaAction(){
@@ -100,13 +106,31 @@ public class PlaySceneController : MonoBehaviour
         info.SetActive(isShowingInfo);
     }
 
+    public void AvanzarAñoAction() //Avanza un año, independientemente de si el objeto estadisticas este activado o no.
+    {
+        añoActual++;
+        txtAñoActual.text = "Año: " + añoActual;
+        añosAvanzados++;
+
+    }
+
+    public int getAñosAvanzados()
+    {
+        return añosAvanzados;
+    }
+
+    public void ResetearAñosAvanzados() /*Vuelve a 0 los años avanzados una vez han sido actualizados los valores en estadisticas*/
+    {
+        añosAvanzados = 0;
+    }
+
     private void ResetearDatosEstadisticas()
     {
         /*Si estadisticas se encuentra desactivado, no tiene sentido resetear datos,
         puesto que no se ha ejecutado ninguna simulacion*/
-        if(isShowingEstadisticas==true) 
+        if(isShowingEstadisticas) 
         {
-            EstadisticasController.estadisticasController.ResetearDatos();
+            EstadisticasController.estadisticasController.ResetearDatosAction();
         }
     }
 }

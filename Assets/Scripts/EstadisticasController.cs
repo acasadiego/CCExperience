@@ -18,24 +18,24 @@ public class EstadisticasController : MonoBehaviour
 
 
 //Variables del modelo dinamico sistemico (Sujetas a simulacion)
-    double year,yearSimulacion,trillon,billon,millon;
-    double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
-    double emisionCo2Ant,industria,tasaIndustrial,trabajadorIndustria,industriaPersonas,co2Industria,co2Persona,tasaCompra,vehiculoCombustible,co2Vehiculo,plasticoQuemado,tasaQuema,co2PlasticoQuemado,co2AntAtm,tasaCo2AntAtm;
+    private double year,yearSimulacion,trillon,billon,millon;
+    private double poblacion,muertes,nacimientos,tasaDeNatalidad,tasaDeMortalidad,efectoSobreMuertes,capacidadCargaMuertes;
+    private double emisionCo2Ant,industria,tasaIndustrial,trabajadorIndustria,industriaPersonas,co2Industria,co2Persona,tasaCompra,vehiculoCombustible,co2Vehiculo,plasticoQuemado,tasaQuema,co2PlasticoQuemado,co2AntAtm,tasaCo2AntAtm;
 
-    double co2Atmosfera,co2AH2CO3,absorcionCO2PlanMar,co2AC,co2CapturadoArbol;
+    private double co2Atmosfera,co2AH2CO3,absorcionCO2PlanMar,co2AC,co2CapturadoArbol;
 
-    double cLitosfera,cACO2,cO2ExpSuperficie;
+    private double cLitosfera,cACO2,cO2ExpSuperficie;
 
-    double h2CO3Hidrosfera,h2CO3ACO2,tasaCO2ExpAgua;
+    private double h2CO3Hidrosfera,h2CO3ACO2,tasaCO2ExpAgua;
 
-    double arboles,nacimientosArb,tasaNatalidadArb,tasaPlantacion,plantacion,tasaTala,capacidadCargaIncendios,tasaIncendios,deforestacion;
+    private double arboles,nacimientosArb,tasaNatalidadArb,tasaPlantacion,plantacion,tasaTala,capacidadCargaIncendios,tasaIncendios,deforestacion;
 
 
-    bool simulacion; //Variable que indica cuando se está realizando una simulación, para que el TEXT del año actual no se vea alterado por ello.
-    int lapsoSimulacionGrafica, espacioAños; /*Variable "espacioAños" : Espacio entre años del eje X de 
+    private bool simulacion; //Variable que indica cuando se está realizando una simulación, para que el TEXT del año actual no se vea alterado por ello.
+    private int lapsoSimulacionGrafica, espacioAños; /*Variable "espacioAños" : Espacio entre años del eje X de 
             la grafica (Ej: la grafica solo mostrará años de 10 en 10, luego espacioAños = 10)*/
 
-    string variableGrafica,ultimoAñoSimulacion;
+    private string variableGrafica,ultimoAñoSimulacion;
 
     
 
@@ -46,7 +46,7 @@ public class EstadisticasController : MonoBehaviour
 
 
 //Variables del modelo dinamico sistemico (Que se encargan de almacenar los valores del AÑO ACTUAL)
- double yearACT, poblacionACT, co2AtmosferaACT, muertesACT, nacimientosACT, industriaACT, vehiculoCombustibleACT, plasticoQuemadoACT,
+ private double yearACT, poblacionACT, co2AtmosferaACT, muertesACT, nacimientosACT, industriaACT, vehiculoCombustibleACT, plasticoQuemadoACT,
                     emisionCo2AntACT, co2AntAtmACT, arbolesACT, nacimientosArbACT, plantacionACT, deforestacionACT, cLitosferaACT, h2CO3HidrosferaACT, co2ACACT,
                         cACO2ACT, co2AH2CO3ACT, h2CO3ACO2ACT;
 
@@ -70,9 +70,21 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    void Update()
+    {
+        if(PlaySceneController.playSceneController.getAñosAvanzados() > 0) /*Averigua si se avanzaron años mientras el objeto estadisticas estaba desactivado, para luego actualizar los valores*/
+        {
+            int añosAvanzados = PlaySceneController.playSceneController.getAñosAvanzados();
 
-    public void InicializarVariablesModelo()  //Valores iniciales de las variables del modelo para el año 2020.
+            for(int i = 0; i<añosAvanzados; i++)
+            {
+                AvanzarAñoActual();
+            }
+
+            PlaySceneController.playSceneController.ResetearAñosAvanzados();
+        }
+    }
+    private void InicializarVariablesModelo()  //Valores iniciales de las variables del modelo para el año 2020.
     {
 
        
@@ -122,7 +134,7 @@ public class EstadisticasController : MonoBehaviour
         h2CO3ACO2 = h2CO3Hidrosfera*tasaCO2ExpAgua;
     }
 
-    public void ActualizarGrafica() //Actualiza la gráfica de la variable seleccionada.
+    private void ActualizarGrafica() //Actualiza la gráfica de la variable seleccionada.
     {
    
 
@@ -165,7 +177,7 @@ public class EstadisticasController : MonoBehaviour
          
     }
 
-    public void VerResultados() //Muestra en la escena una simulación de las variables en un año especifico.
+    public void VerResultadosAction() //Muestra en la escena una simulación de las variables en un año especifico.
     {
         
         
@@ -210,7 +222,7 @@ public class EstadisticasController : MonoBehaviour
     }
     
 
-    public void MantenerDatosActuales()  //Guarda los valores de las variables en el AÑO ACTUAL, para que no se pierdan al momento de realizar alguna simulación.
+    private void MantenerDatosActuales()  //Guarda los valores de las variables en el AÑO ACTUAL, para que no se pierdan al momento de realizar alguna simulación.
     {
 
        
@@ -239,7 +251,7 @@ public class EstadisticasController : MonoBehaviour
     }
 
 
-    public void RecuperarDatosActuales() //Trae de vuelta los valores de las variables en el AÑO ACTUAL que hayan sido alterados por alguna simulación.
+    private void RecuperarDatosActuales() //Trae de vuelta los valores de las variables en el AÑO ACTUAL que hayan sido alterados por alguna simulación.
     {
 
         
@@ -266,7 +278,7 @@ public class EstadisticasController : MonoBehaviour
 
     }
     
-    public void AvanzarAñoActual() /*Avanza el año ACTUAL del juego, el cual no puede ser retrocedido*/
+    private void AvanzarAñoActual() /*Avanza el año ACTUAL del juego, el cual no puede ser retrocedido*/
     {
         simulacion = false; /*Al avanzar el año actual, se cancela toda simulacion existente*/
         AvanzarAño(); 
@@ -274,10 +286,10 @@ public class EstadisticasController : MonoBehaviour
         ActualizarGrafica();
         ActualizarValores(); 
         inpYearSimulacion.placeholder.GetComponent<Text>().text = yearACT.ToString(); /* El placeholder del inputField "Año Simulacion" pasa a contener el texto del año actual. */
-        /*NOTA: SOLUCIONAR BUG CON ESTE METODO: NO SE PUEDE AVANZAR EL AÑO ACTUAL CUANDO LA PESTAÑA "ESTADISTICAS" ESTÁ DESACTIVADA"*/
+        
     }
     
-    public void AvanzarAño() /*Avanza un año, este metodo se utilzia tanto para avanzar un año actual como para avanzar un año en la simulacion*/
+    private void AvanzarAño() /*Avanza un año, este metodo se utilzia tanto para avanzar un año actual como para avanzar un año en la simulacion*/
     {
 
         //Ecuaciones de los niveles y flujos del modelo.
@@ -309,7 +321,7 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
-    void ActualizarValores()//Actualiza los TEXT de las estadisticas en la escena.
+    private void ActualizarValores()//Actualiza los TEXT de las estadisticas en la escena.
     {
 
         
@@ -332,13 +344,10 @@ public class EstadisticasController : MonoBehaviour
         cantidad = DeterminarUnidad(arboles);
         unidad = DeterminarUnidadTexto(cantidad);
         txtArboles.text = "Arboles: " + (float)(arboles/cantidad) + unidad;
-
-        if(simulacion == false)
-        {txtYear.text = "Año: " + year;}
         
     }
 
-    double DeterminarUnidad(double valor) /* Determina la unidad (millon, billon o trillon) de un numero pasado por parametro, y devuelve el valor de dicha unidad*/
+    private double DeterminarUnidad(double valor) /* Determina la unidad (millon, billon o trillon) de un numero pasado por parametro, y devuelve el valor de dicha unidad*/
     {
 
         //Determina la unidad (millon, billón o trillón) en DOUBLE de un valor pasado por parametro.
@@ -360,7 +369,7 @@ public class EstadisticasController : MonoBehaviour
         return cantidad;
     }
 
-    string DeterminarUnidadTexto(double cantidad)/*Determina la unidad (millon, billon o trillon) de un numero pasado por parametro, y devuelve el TEXTO del nombre de dicha unidad*/
+    private string DeterminarUnidadTexto(double cantidad)/*Determina la unidad (millon, billon o trillon) de un numero pasado por parametro, y devuelve el TEXTO del nombre de dicha unidad*/
     {
 
         //Determina la unidad (millón, billón o trillón) en STRING de un valor pasado por parametro. 
@@ -384,7 +393,7 @@ public class EstadisticasController : MonoBehaviour
     
 
 
-    void EfectoMuertes() //Metodo que representa el comportamiento del Lookup efecto sobre las muertes del modelo.
+    private void EfectoMuertes() //Metodo que representa el comportamiento del Lookup efecto sobre las muertes del modelo.
     {
         double oper = co2Atmosfera / capacidadCargaMuertes;
         
@@ -395,7 +404,7 @@ public class EstadisticasController : MonoBehaviour
 
 
   
-    void TasaIncendios() //Metodo que representa el comportamiento del Lookup tasa de incendios forestales del modelo.  
+    private void TasaIncendios() //Metodo que representa el comportamiento del Lookup tasa de incendios forestales del modelo.  
     {
         double oper = co2Atmosfera / capacidadCargaIncendios;
        
@@ -404,7 +413,7 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
-    public void ResetearDatos() //Cancela toda simulacion existente y retorna las variables y las graficas a sus valores del año actual.
+    public void ResetearDatosAction() //Cancela toda simulacion existente y retorna las variables y las graficas a sus valores del año actual.
     {
         simulacion = false;
         variableGrafica = "co2Atmosfera";
@@ -414,45 +423,45 @@ public class EstadisticasController : MonoBehaviour
 
     }
 
-    public void CambiarGraficaCo2Atm() //Muestra en la grafica los valores de la variable "Co2Atmosfera"
+    public void CambiarGraficaCo2AtmAction() //Muestra en la grafica los valores de la variable "Co2Atmosfera"
     {
         variableGrafica = "co2Atmosfera";
         conocerSimulacion();
     }
 
-    public void CambiarGraficaCo2Ant() //Muestra en la grafica los valores de la variable "emisionCo2Ant"
+    public void CambiarGraficaCo2AntAction() //Muestra en la grafica los valores de la variable "emisionCo2Ant"
     {
         variableGrafica = "emisionCo2Ant";
         conocerSimulacion();
     }
 
-    public void CambiarGraficaPoblacion() //Muestra en la grafica los valores de la variable "poblacion"
+    public void CambiarGraficaPoblacionAction() //Muestra en la grafica los valores de la variable "poblacion"
     {
         variableGrafica = "poblacion";
         conocerSimulacion();
     }
 
-    public void CambiarGraficaArboles() //Muestra en la grafica los valores de la variable "arboles"
+    public void CambiarGraficaArbolesAction() //Muestra en la grafica los valores de la variable "arboles"
     {
         variableGrafica = "arboles";
         conocerSimulacion();
     }
 
 
-    public void conocerSimulacion() /*Metodo para saber si la sección de estadisticas está en modo simulacion o no, para saber qué datos se deben graficar al cambiar de variable*/
+    private void conocerSimulacion() /*Metodo para saber si la sección de estadisticas está en modo simulacion o no, para saber qué datos se deben graficar al cambiar de variable*/
     { 
 
         if(simulacion)
         {
             inpYearSimulacion.text = ultimoAñoSimulacion;
-            VerResultados();
+            VerResultadosAction();
         }
         else{
             ActualizarGrafica();
         }
     }
 
-    public double DeterminarVariableModelo() /*Determina que variable del modelo se ha seleccionado actualmente, para saber cual de ellas se debe graficar*/
+    private double DeterminarVariableModelo() /*Determina que variable del modelo se ha seleccionado actualmente, para saber cual de ellas se debe graficar*/
     {
         double variableModelo = co2Atmosfera;
 

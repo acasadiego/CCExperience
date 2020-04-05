@@ -6,7 +6,7 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData playerData;
 
-    void Start()
+    void Awake()
     {
         playerData = this;
     }

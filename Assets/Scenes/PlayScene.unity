@@ -987,7 +987,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: CambiarGraficaPoblacion
+        m_MethodName: CambiarGraficaPoblacionAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1737,7 +1737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.81500006, y: 0.01636882}
   m_AnchorMax: {x: 0.84123296, y: 0.055000003}
-  m_AnchoredPosition: {x: 0.1784668, y: -0.043395996}
+  m_AnchoredPosition: {x: 0.1784668, y: -0.04333496}
   m_SizeDelta: {x: 0.6038208, y: -0.70399475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &493787344
@@ -1902,7 +1902,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: CambiarGraficaCo2Atm
+        m_MethodName: CambiarGraficaCo2AtmAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4080,7 +4080,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: CambiarGraficaCo2Ant
+        m_MethodName: CambiarGraficaCo2AntAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4491,7 +4491,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: ResetearDatos
+        m_MethodName: ResetearDatosAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5464,8 +5464,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 570135055}
-        m_MethodName: "AvanzarA\xF1oActual"
+      - m_Target: {fileID: 1873208003}
+        m_MethodName: "AvanzarA\xF1oAction"
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6424,7 +6424,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: VerResultados
+        m_MethodName: VerResultadosAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6679,6 +6679,7 @@ MonoBehaviour:
   isShowingTienda: 0
   isShowingInfo: 0
   txtUserName: {fileID: 395322938}
+  "txtA\xF1oActual": {fileID: 1148766145}
 --- !u!114 &1873208004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7640,7 +7641,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 570135055}
-        m_MethodName: CambiarGraficaArboles
+        m_MethodName: CambiarGraficaArbolesAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

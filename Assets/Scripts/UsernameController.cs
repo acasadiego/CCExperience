@@ -16,7 +16,7 @@ public class UsernameController : MonoBehaviour
 
     bool partidaExistente;
 
-    double timer; //Variable que corresponderá al tiempo que durará la alerta de "nombre de usuario erroneo" en escena
+    private double timer; //Variable que corresponderá al tiempo que durará la alerta de "nombre de usuario erroneo" en escena
 
     void Start()
     {
@@ -37,6 +37,20 @@ public class UsernameController : MonoBehaviour
             timer = 0;
             alerta.SetActive(false);
         }
+
+    
+        //Segunda forma de salirse de volver al menu principal
+        if (Input.GetKey("escape"))
+        {
+            VolverAction();
+        }
+
+        //Segunda forma de continuar a la escena de juego.
+         if (Input.GetKey("return"))
+         {
+            SiguienteAction();
+         }
+    
     }
 
     public void SiguienteAction()
