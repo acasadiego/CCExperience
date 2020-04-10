@@ -41,7 +41,7 @@ public class EstadisticasController : MonoBehaviour
 
 
 //Lista donde se almacenan los datos que se mostrarán en la gráfica.
-     private List<int> datosGrafica;
+     private List<double> datosGrafica;
 
 
 
@@ -138,20 +138,38 @@ public class EstadisticasController : MonoBehaviour
     {
    
 
-        datosGrafica = new List<int>();
+        datosGrafica = new List<double>();
         int yearGrafica = (int)year; //Se guarda la variable "año" en una auxiliar "año grafica", ya que la primera cambiará en las siguientes lineas debido a la simulación.
-        double cantidad = DeterminarUnidad(DeterminarVariableModelo()); 
+
+        double mayor = 0; /*Variable donde se almacenará el mayor de los valores a graficar, cuya unidad será tomada como
+         referencia para todos los valores de la grafica*/ 
+
 
         for(int i = 0;i<lapsoSimulacionGrafica;i++)
         {
-            AvanzarAño();
-
-            if(i%espacioAños==0)
-            { 
-              datosGrafica.Add((int)(DeterminarVariableModelo()/cantidad));
+            
+            if (i % espacioAños == 0)
+            {
+                datosGrafica.Add((DeterminarVariableModelo()));
+                if(DeterminarVariableModelo() > mayor)
+                { mayor = DeterminarVariableModelo(); }
             }
 
+            AvanzarAño();
+
         }
+
+
+        double cantidad = DeterminarUnidad(mayor);
+        mayor = mayor / cantidad; /*Se reduce el tamaño del numero mayor segun su unidad (Ej: 3 trillones) para mas
+        adelante pasarlo como parametro al metodo de la clase windows graph, donde se convertira en el numero mayo del
+        eje Y de la grafica*/
+
+        for(int i=0;i<datosGrafica.Count;i++)
+        {
+            datosGrafica[i] = (float)(datosGrafica[i] / cantidad);
+        }
+
 
         string texto = "Toneladas";
 
@@ -168,7 +186,7 @@ public class EstadisticasController : MonoBehaviour
 
         txtEjeY.text = texto + " (" + DeterminarUnidadTexto(cantidad) + ")";
         Window_Graph.window_Graph.cleanGraphic();
-        Window_Graph.window_Graph.setvalueList(datosGrafica,yearGrafica); /* Se envia la variable año grafica, la cual representa el año inicial de la simulación en la grafica*/
+        Window_Graph.window_Graph.setvalueList(datosGrafica,yearGrafica,mayor); /* Se envia la variable año grafica, la cual representa el año inicial de la simulación en la grafica*/
         datosGrafica.Clear();
 
         RecuperarDatosActuales(); //Se reestablecen los datos actuales luego de graficar 
@@ -177,11 +195,12 @@ public class EstadisticasController : MonoBehaviour
          
     }
 
+
     public void VerResultadosAction() //Muestra en la escena una simulación de las variables en un año especifico.
     {
         
         
-        datosGrafica = new List<int>();
+        datosGrafica = new List<double>();
         MantenerDatosActuales();
         
         //¡MOMENTANEO! (Cambiar luego para mejora del código) Se hace un try catch en caso de que el usuario ingrese un valor NO númerico en la text box.

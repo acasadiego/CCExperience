@@ -14,7 +14,7 @@ public class Window_Graph : MonoBehaviour {
     private RectTransform dashTemplateX;
     private RectTransform dashTemplateY;
 
-    private List<int> datosGrafica;
+    private List<double> datosGrafica;
 
     private GameObject graphicObjects;
     private float yMaximum;
@@ -45,7 +45,7 @@ public class Window_Graph : MonoBehaviour {
         return gameObject;
     }
 
-    private void ShowGraph(List<int> valueList, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
+    private void ShowGraph(List<double> valueList, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
         if (getAxisLabelX == null) {
             getAxisLabelX = delegate (int _i) { return _i.ToString(); };
         }
@@ -59,7 +59,7 @@ public class Window_Graph : MonoBehaviour {
         GameObject lastCircleGameObject = null;
         for (int i = 0; i < valueList.Count; i++) {
             float xPosition = xSize + i * xSize;
-            float yPosition = (valueList[i] / yMaximum) * graphHeight;
+            float yPosition = (float)((valueList[i] / yMaximum) * graphHeight);
             GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
             if (lastCircleGameObject != null) {
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
@@ -87,8 +87,8 @@ public class Window_Graph : MonoBehaviour {
             labelY.transform.SetParent(graphicObjects.transform,false); /*El label del eje Y creado se hace hijo de graphicObjects*/
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / separatorCount;
-            labelY.anchoredPosition = new Vector2(-14f, normalizedValue * graphHeight);
-            labelY.GetComponent<Text>().text = getAxisLabelY(normalizedValue * yMaximum);
+            labelY.anchoredPosition = new Vector2(-23f, normalizedValue * graphHeight);
+            labelY.GetComponent<Text>().text = Math.Round((normalizedValue * yMaximum),2).ToString();
             labelY.GetComponent<Text>().fontSize = 15;
             
             RectTransform dashY = Instantiate(dashTemplateX); 
@@ -121,27 +121,15 @@ public class Window_Graph : MonoBehaviour {
         }
 
 
-    public void setvalueList(List<int> datosGrafica,int año)  /*Se inicializa una nueva grafica, pasando sus datos por parametro y el año inicial*/
+    public void setvalueList(List<double> datosGrafica,int año,double mayor)  /*Se inicializa una nueva grafica, pasando sus datos por parametro y el año inicial*/
     {
 
         this.datosGrafica = datosGrafica;
-        setyMaximum();
+        yMaximum = (float)mayor;
         ShowGraph(datosGrafica, (int _i) => ""+(_i+año), (float _f) => Mathf.RoundToInt(_f).ToString());
         
     }
 
-    public void setyMaximum() /*Haya el número mayor de los datos de una grafica, para establecerlo como el "Y maximo" */
-    {
-        yMaximum = datosGrafica[0];
-
-        for(int i=0;i<datosGrafica.Count-1;i++)
-        {
-            if(datosGrafica[i] < datosGrafica[i+1])
-            {
-                yMaximum = datosGrafica[i+1];
-            }
-        }
-    }
 
     public void cleanGraphic() /*Elimina los elementos de la grafica*/
     {
