@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,20 +11,29 @@ public class PlaySceneController : MonoBehaviour
 
     public static PlaySceneController playSceneController;
     public GameObject mapa, estadisticas, tienda, info;
+    public Dropdown dropdownMisiones;
     public TextAsset ChinaTxt, EstadosuTxt, AlemaniaTxt, ArabiasTxt, BrasilTxt;
     private bool isShowingMapa, isShowingEstadisticas, isShowingTienda, isShowingInfo;
 
     public Text txtUserName, txtAñoActual;
+    
+    public GameObject Panel_Mision, Panel_Misiones;
+    private GameObject panelObjects;
+
+    private string[,] misionesArray = new string[,] {{"Misiones China1","Misiones China2","Misiones China3"},{"Misiones Estados Unidos1","Misiones Estados Unidos2","Misiones Estados Unidos3"},{"Misiones Alemania1","Misiones Alemania2","Misiones Alemania3"},{"Misiones Arabia Saudita1","Misiones Arabia Saudita2","Misiones Arabia Saudita3"},{"Misiones Brasil1","Misiones Brasil2","Misiones Brasil3"}};
 
     private int añosAvanzados, añoActual;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         playSceneController = this;
         añoActual = 2020;
         txtUserName.text = PlayerData.playerData.getUsername();
         scene = SceneManager.GetActiveScene();
+        
+        panelObjects = new GameObject("panelObjects");
+
  
     }
 
@@ -69,7 +79,7 @@ public class PlaySceneController : MonoBehaviour
         tienda.SetActive(isShowingTienda);
     }
 
-
+    //Mostrar info de los diferentes paises presentes en el mapa
     public void ChinaAction(){
         isShowingInfo = true;
         info.GetComponent<UnityEngine.UI.Text>().text = ChinaTxt.text;
@@ -133,4 +143,31 @@ public class PlaySceneController : MonoBehaviour
             EstadisticasController.estadisticasController.ResetearDatosAction();
         }
     }
+
+    //Control de las misiones que aparecen en pantalla
+    public void DropdownMisiones(int index) {
+        DestroyPanels("Clone");
+
+        for(int i = 0; i < misionesArray.Rank+1;i++){
+                Text textAuxiliar;
+                GameObject panelMisionCopia = Instantiate(Panel_Mision, new Vector3(0, i*-150f, 0), Quaternion.identity);
+                panelMisionCopia.transform.SetParent(Panel_Misiones.transform, false);
+                panelMisionCopia.gameObject.SetActive(true);
+                panelMisionCopia.gameObject.tag = "Clone";
+                textAuxiliar = panelMisionCopia.GetComponentInChildren<Text>();
+                textAuxiliar.text = misionesArray[index,i];
+        }
+        
+                        
+    }
+
+   private void DestroyPanels(string tag){
+       GameObject[] panelObjects = GameObject.FindGameObjectsWithTag(tag);
+       foreach(GameObject target in panelObjects){
+           GameObject.Destroy(target);
+       }
+   }
+    
+
+
 }
